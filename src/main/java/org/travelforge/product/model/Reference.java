@@ -31,7 +31,7 @@ import java.io.Serializable;
  *
  * @author Matthias Deck
  */
-public class Id implements Serializable {
+public class Reference implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -57,12 +57,12 @@ public class Id implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Id)) return false;
+        if (!(o instanceof Reference)) return false;
 
-        Id id = (Id) o;
+        Reference reference = (Reference) o;
 
-        if (type != null ? !type.equals(id.type) : id.type != null) return false;
-        return value != null ? value.equals(id.value) : id.value == null;
+        if (type != null ? !type.equals(reference.type) : reference.type != null) return false;
+        return value != null ? value.equals(reference.value) : reference.value == null;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class Id implements Serializable {
 
     @Override
     public String toString() {
-        return "Id{" +
+        return "Reference{" +
                 "type='" + type + '\'' +
                 ", value='" + value + '\'' +
                 '}';

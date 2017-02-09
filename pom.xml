@@ -6,7 +6,7 @@
 
     <groupId>org.travelforge</groupId>
     <artifactId>product-model</artifactId>
-    <version>0.5</version>
+    <version>0.6-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Travelforge Product Model</name>
@@ -38,11 +38,11 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>ossrh</id>
+            <reference>ossrh</reference>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
-            <id>ossrh</id>
+            <reference>ossrh</reference>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
@@ -72,7 +72,7 @@
                 <version>3.0.1</version>
                 <executions>
                     <execution>
-                        <id>attach-sources</id>
+                        <reference>attach-sources</reference>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
@@ -85,7 +85,7 @@
                 <version>2.10.4</version>
                 <executions>
                     <execution>
-                        <id>attach-javadocs</id>
+                        <reference>attach-javadocs</reference>
                         <goals>
                             <goal>jar</goal>
                         </goals>
@@ -98,7 +98,7 @@
                 <version>1.6</version>
                 <executions>
                     <execution>
-                        <id>sign-artifacts</id>
+                        <reference>sign-artifacts</reference>
                         <phase>verify</phase>
                         <goals>
                             <goal>sign</goal>
