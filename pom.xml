@@ -38,11 +38,11 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <reference>ossrh</reference>
+            <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
-            <reference>ossrh</reference>
+            <id>ossrh</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
@@ -72,7 +72,7 @@
                 <version>3.0.1</version>
                 <executions>
                     <execution>
-                        <reference>attach-sources</reference>
+                        <id>attach-sources</id>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
@@ -85,7 +85,7 @@
                 <version>2.10.4</version>
                 <executions>
                     <execution>
-                        <reference>attach-javadocs</reference>
+                        <id>attach-javadocs</id>
                         <goals>
                             <goal>jar</goal>
                         </goals>
@@ -98,7 +98,7 @@
                 <version>1.6</version>
                 <executions>
                     <execution>
-                        <reference>sign-artifacts</reference>
+                        <id>sign-artifacts</id>
                         <phase>verify</phase>
                         <goals>
                             <goal>sign</goal>
