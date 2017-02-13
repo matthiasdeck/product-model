@@ -39,9 +39,17 @@ public class PackageProductList implements Serializable, Iterable<PackageProduct
 
     private static final long serialVersionUID = 1L;
 
+    private Map<String, Object> properties;
     private List<PackageProduct> products;
     private Map<String, Object> references;
-    private Map<String, Object> properties;
+
+    public Map<String, Object> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Map<String, Object> properties) {
+        this.properties = properties;
+    }
 
     public List<PackageProduct> getProducts() {
         return products;
@@ -57,14 +65,6 @@ public class PackageProductList implements Serializable, Iterable<PackageProduct
 
     public void setReferences(Map<String, Object> references) {
         this.references = references;
-    }
-
-    public Map<String, Object> getProperties() {
-        return properties;
-    }
-
-    public void setProperties(Map<String, Object> properties) {
-        this.properties = properties;
     }
 
     @Override
@@ -83,25 +83,25 @@ public class PackageProductList implements Serializable, Iterable<PackageProduct
 
         PackageProductList that = (PackageProductList) o;
 
+        if (properties != null ? !properties.equals(that.properties) : that.properties != null) return false;
         if (products != null ? !products.equals(that.products) : that.products != null) return false;
-        if (references != null ? !references.equals(that.references) : that.references != null) return false;
-        return properties != null ? properties.equals(that.properties) : that.properties == null;
+        return references != null ? references.equals(that.references) : that.references == null;
     }
 
     @Override
     public int hashCode() {
-        int result = products != null ? products.hashCode() : 0;
+        int result = properties != null ? properties.hashCode() : 0;
+        result = 31 * result + (products != null ? products.hashCode() : 0);
         result = 31 * result + (references != null ? references.hashCode() : 0);
-        result = 31 * result + (properties != null ? properties.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "PackageProductList{" +
-                "products=" + products +
+                "properties=" + properties +
+                ", products=" + products +
                 ", references=" + references +
-                ", properties=" + properties +
                 '}';
     }
 }

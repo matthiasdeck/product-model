@@ -39,10 +39,10 @@ public class PackageProductGroup implements Serializable {
 
     private Integer id;
     private String name;
+    private Map<String, Object> properties;
     private List<PackageProductGroup> productGroups;
     private List<PackageProduct> products;
     private Map<String, Object> references;
-    private Map<String, Object> properties;
 
     public Integer getId() {
         return id;
@@ -58,6 +58,14 @@ public class PackageProductGroup implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Map<String, Object> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Map<String, Object> properties) {
+        this.properties = properties;
     }
 
     public List<PackageProductGroup> getProductGroups() {
@@ -84,14 +92,6 @@ public class PackageProductGroup implements Serializable {
         this.references = references;
     }
 
-    public Map<String, Object> getProperties() {
-        return properties;
-    }
-
-    public void setProperties(Map<String, Object> properties) {
-        this.properties = properties;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -101,21 +101,21 @@ public class PackageProductGroup implements Serializable {
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (properties != null ? !properties.equals(that.properties) : that.properties != null) return false;
         if (productGroups != null ? !productGroups.equals(that.productGroups) : that.productGroups != null)
             return false;
         if (products != null ? !products.equals(that.products) : that.products != null) return false;
-        if (references != null ? !references.equals(that.references) : that.references != null) return false;
-        return properties != null ? properties.equals(that.properties) : that.properties == null;
+        return references != null ? references.equals(that.references) : that.references == null;
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (properties != null ? properties.hashCode() : 0);
         result = 31 * result + (productGroups != null ? productGroups.hashCode() : 0);
         result = 31 * result + (products != null ? products.hashCode() : 0);
         result = 31 * result + (references != null ? references.hashCode() : 0);
-        result = 31 * result + (properties != null ? properties.hashCode() : 0);
         return result;
     }
 
@@ -124,10 +124,10 @@ public class PackageProductGroup implements Serializable {
         return "PackageProductGroup{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", properties=" + properties +
                 ", productGroups=" + productGroups +
                 ", products=" + products +
                 ", references=" + references +
-                ", properties=" + properties +
                 '}';
     }
 }
