@@ -28,7 +28,6 @@ package org.travelforge.product.model;
 import java.io.Serializable;
 
 /**
- *
  * @author Matthias Deck
  */
 public class TourOperator implements Serializable {

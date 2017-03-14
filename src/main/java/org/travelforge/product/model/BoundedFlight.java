@@ -28,10 +28,8 @@ package org.travelforge.product.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 /**
- *
  * @author Matthias Deck
  */
 public abstract class BoundedFlight implements Serializable {
@@ -50,7 +48,6 @@ public abstract class BoundedFlight implements Serializable {
     private LocalDateTime arrivalDateTime;
     private Integer stopOver;
     private List<FlightSegment> segments;
-    private Map<String, Object> references;
 
     public String getProvider() {
         return provider;
@@ -148,18 +145,10 @@ public abstract class BoundedFlight implements Serializable {
         this.segments = segments;
     }
 
-    public Map<String, Object> getReferences() {
-        return references;
-    }
-
-    public void setReferences(Map<String, Object> references) {
-        this.references = references;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BoundedFlight)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         BoundedFlight that = (BoundedFlight) o;
 
@@ -178,8 +167,7 @@ public abstract class BoundedFlight implements Serializable {
         if (arrivalDateTime != null ? !arrivalDateTime.equals(that.arrivalDateTime) : that.arrivalDateTime != null)
             return false;
         if (stopOver != null ? !stopOver.equals(that.stopOver) : that.stopOver != null) return false;
-        if (segments != null ? !segments.equals(that.segments) : that.segments != null) return false;
-        return references != null ? references.equals(that.references) : that.references == null;
+        return segments != null ? segments.equals(that.segments) : that.segments == null;
     }
 
     @Override
@@ -196,7 +184,6 @@ public abstract class BoundedFlight implements Serializable {
         result = 31 * result + (arrivalDateTime != null ? arrivalDateTime.hashCode() : 0);
         result = 31 * result + (stopOver != null ? stopOver.hashCode() : 0);
         result = 31 * result + (segments != null ? segments.hashCode() : 0);
-        result = 31 * result + (references != null ? references.hashCode() : 0);
         return result;
     }
 
@@ -215,7 +202,6 @@ public abstract class BoundedFlight implements Serializable {
                 ", arrivalDateTime=" + arrivalDateTime +
                 ", stopOver=" + stopOver +
                 ", segments=" + segments +
-                ", references=" + references +
                 '}';
     }
 }

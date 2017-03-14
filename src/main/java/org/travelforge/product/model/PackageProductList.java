@@ -32,7 +32,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author Matthias Deck
  */
 public class PackageProductList implements Serializable, Iterable<PackageProduct> {

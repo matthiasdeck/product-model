@@ -27,10 +27,8 @@ package org.travelforge.product.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Map;
 
 /**
- *
  * @author Matthias Deck
  */
 public class FlightSegment implements Serializable {
@@ -46,7 +44,6 @@ public class FlightSegment implements Serializable {
     private LocalDateTime departureDateTime;
     private Airport arrivalAirport;
     private LocalDateTime arrivalDateTime;
-    private Map<String, Object> references;
 
     public Airline getAirline() {
         return airline;
@@ -120,18 +117,10 @@ public class FlightSegment implements Serializable {
         this.arrivalDateTime = arrivalDateTime;
     }
 
-    public Map<String, Object> getReferences() {
-        return references;
-    }
-
-    public void setReferences(Map<String, Object> references) {
-        this.references = references;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof FlightSegment)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         FlightSegment that = (FlightSegment) o;
 
@@ -146,9 +135,7 @@ public class FlightSegment implements Serializable {
             return false;
         if (arrivalAirport != null ? !arrivalAirport.equals(that.arrivalAirport) : that.arrivalAirport != null)
             return false;
-        if (arrivalDateTime != null ? !arrivalDateTime.equals(that.arrivalDateTime) : that.arrivalDateTime != null)
-            return false;
-        return references != null ? references.equals(that.references) : that.references == null;
+        return arrivalDateTime != null ? arrivalDateTime.equals(that.arrivalDateTime) : that.arrivalDateTime == null;
     }
 
     @Override
@@ -162,7 +149,6 @@ public class FlightSegment implements Serializable {
         result = 31 * result + (departureDateTime != null ? departureDateTime.hashCode() : 0);
         result = 31 * result + (arrivalAirport != null ? arrivalAirport.hashCode() : 0);
         result = 31 * result + (arrivalDateTime != null ? arrivalDateTime.hashCode() : 0);
-        result = 31 * result + (references != null ? references.hashCode() : 0);
         return result;
     }
 
@@ -178,7 +164,6 @@ public class FlightSegment implements Serializable {
                 ", departureDateTime=" + departureDateTime +
                 ", arrivalAirport=" + arrivalAirport +
                 ", arrivalDateTime=" + arrivalDateTime +
-                ", references=" + references +
                 '}';
     }
 }

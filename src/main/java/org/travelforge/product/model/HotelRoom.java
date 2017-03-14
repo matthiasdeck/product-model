@@ -29,7 +29,6 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *
  * @author Matthias Deck
  */
 public class HotelRoom implements Serializable {

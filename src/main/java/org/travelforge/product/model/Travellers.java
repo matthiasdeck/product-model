@@ -30,7 +30,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- *
  * @author Matthias Deck
  */
 public class Travellers implements Serializable {

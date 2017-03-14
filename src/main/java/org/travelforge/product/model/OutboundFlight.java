@@ -26,7 +26,6 @@
 package org.travelforge.product.model;
 
 /**
- *
  * @author Matthias Deck
  */
 public class OutboundFlight extends BoundedFlight {

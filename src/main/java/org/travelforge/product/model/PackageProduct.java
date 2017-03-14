@@ -30,14 +30,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author Matthias Deck
  */
 public class PackageProduct implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Reference reference;
     private String provider;
     private TourOperator tourOperator;
     private Travellers travellers;
@@ -47,14 +45,6 @@ public class PackageProduct implements Serializable {
     private List<Extra> extras;
     private Price price;
     private Map<String, Object> references;
-
-    public Reference getReference() {
-        return reference;
-    }
-
-    public void setReference(Reference reference) {
-        this.reference = reference;
-    }
 
     public String getProvider() {
         return provider;
@@ -131,11 +121,10 @@ public class PackageProduct implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PackageProduct)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         PackageProduct that = (PackageProduct) o;
 
-        if (reference != null ? !reference.equals(that.reference) : that.reference != null) return false;
         if (provider != null ? !provider.equals(that.provider) : that.provider != null) return false;
         if (tourOperator != null ? !tourOperator.equals(that.tourOperator) : that.tourOperator != null) return false;
         if (travellers != null ? !travellers.equals(that.travellers) : that.travellers != null) return false;
@@ -149,8 +138,7 @@ public class PackageProduct implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = reference != null ? reference.hashCode() : 0;
-        result = 31 * result + (provider != null ? provider.hashCode() : 0);
+        int result = provider != null ? provider.hashCode() : 0;
         result = 31 * result + (tourOperator != null ? tourOperator.hashCode() : 0);
         result = 31 * result + (travellers != null ? travellers.hashCode() : 0);
         result = 31 * result + (travelPeriod != null ? travelPeriod.hashCode() : 0);
@@ -165,8 +153,7 @@ public class PackageProduct implements Serializable {
     @Override
     public String toString() {
         return "PackageProduct{" +
-                "reference=" + reference +
-                ", provider='" + provider + '\'' +
+                "provider='" + provider + '\'' +
                 ", tourOperator=" + tourOperator +
                 ", travellers=" + travellers +
                 ", travelPeriod=" + travelPeriod +

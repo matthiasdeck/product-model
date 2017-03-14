@@ -26,10 +26,8 @@
 package org.travelforge.product.model;
 
 import java.io.Serializable;
-import java.util.Map;
 
 /**
- *
  * @author Matthias Deck
  */
 public class Flight implements Serializable {
@@ -39,7 +37,6 @@ public class Flight implements Serializable {
     private String provider;
     private OutboundFlight outbound;
     private InboundFlight inbound;
-    private Map<String, Object> references;
 
     public String getProvider() {
         return provider;
@@ -65,25 +62,16 @@ public class Flight implements Serializable {
         this.inbound = inbound;
     }
 
-    public Map<String, Object> getReferences() {
-        return references;
-    }
-
-    public void setReferences(Map<String, Object> references) {
-        this.references = references;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Flight)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Flight flight = (Flight) o;
 
         if (provider != null ? !provider.equals(flight.provider) : flight.provider != null) return false;
         if (outbound != null ? !outbound.equals(flight.outbound) : flight.outbound != null) return false;
-        if (inbound != null ? !inbound.equals(flight.inbound) : flight.inbound != null) return false;
-        return references != null ? references.equals(flight.references) : flight.references == null;
+        return inbound != null ? inbound.equals(flight.inbound) : flight.inbound == null;
     }
 
     @Override
@@ -91,7 +79,6 @@ public class Flight implements Serializable {
         int result = provider != null ? provider.hashCode() : 0;
         result = 31 * result + (outbound != null ? outbound.hashCode() : 0);
         result = 31 * result + (inbound != null ? inbound.hashCode() : 0);
-        result = 31 * result + (references != null ? references.hashCode() : 0);
         return result;
     }
 
@@ -101,7 +88,6 @@ public class Flight implements Serializable {
                 "provider='" + provider + '\'' +
                 ", outbound=" + outbound +
                 ", inbound=" + inbound +
-                ", references=" + references +
                 '}';
     }
 }

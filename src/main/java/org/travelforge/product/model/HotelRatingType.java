@@ -26,13 +26,9 @@
 package org.travelforge.product.model;
 
 /**
- *
  * @author Matthias Deck
  */
 public class HotelRatingType {
-
-    private HotelRatingType() {
-    }
 
     public static final String RATING_COUNT = "RATING_COUNT";
     public static final String OVERALL_AVERAGE_RATING = "OVERALL_AVERAGE_RATING";
@@ -52,4 +48,7 @@ public class HotelRatingType {
     public static final String RECOMMENDATIONS_BUSINESS_TRIP = "RECOMMENDATIONS_BUSINESS_TRIP";
     public static final String RECOMMENDATIONS_CITY_BREAK = "RECOMMENDATIONS_CITY_BREAK";
     public static final String RECOMMENDATIONS_WELLNESS = "RECOMMENDATIONS_WELLNESS";
+
+    private HotelRatingType() {
+    }
 }

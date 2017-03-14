@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author Matthias Deck
  */
 public class Hotel implements Serializable {
@@ -47,7 +46,6 @@ public class Hotel implements Serializable {
     private Map<String, Number> recommendations;
     private HotelRoom room;
     private HotelBoard board;
-    private Map<String, Object> references;
 
     public String getProvider() {
         return provider;
@@ -129,12 +127,39 @@ public class Hotel implements Serializable {
         this.board = board;
     }
 
-    public Map<String, Object> getReferences() {
-        return references;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Hotel hotel = (Hotel) o;
+
+        if (provider != null ? !provider.equals(hotel.provider) : hotel.provider != null) return false;
+        if (code != null ? !code.equals(hotel.code) : hotel.code != null) return false;
+        if (productCode != null ? !productCode.equals(hotel.productCode) : hotel.productCode != null) return false;
+        if (name != null ? !name.equals(hotel.name) : hotel.name != null) return false;
+        if (category != null ? !category.equals(hotel.category) : hotel.category != null) return false;
+        if (location != null ? !location.equals(hotel.location) : hotel.location != null) return false;
+        if (attributes != null ? !attributes.equals(hotel.attributes) : hotel.attributes != null) return false;
+        if (recommendations != null ? !recommendations.equals(hotel.recommendations) : hotel.recommendations != null)
+            return false;
+        if (room != null ? !room.equals(hotel.room) : hotel.room != null) return false;
+        return board != null ? board.equals(hotel.board) : hotel.board == null;
     }
 
-    public void setReferences(Map<String, Object> references) {
-        this.references = references;
+    @Override
+    public int hashCode() {
+        int result = provider != null ? provider.hashCode() : 0;
+        result = 31 * result + (code != null ? code.hashCode() : 0);
+        result = 31 * result + (productCode != null ? productCode.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (category != null ? category.hashCode() : 0);
+        result = 31 * result + (location != null ? location.hashCode() : 0);
+        result = 31 * result + (attributes != null ? attributes.hashCode() : 0);
+        result = 31 * result + (recommendations != null ? recommendations.hashCode() : 0);
+        result = 31 * result + (room != null ? room.hashCode() : 0);
+        result = 31 * result + (board != null ? board.hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -150,7 +175,6 @@ public class Hotel implements Serializable {
                 ", recommendations=" + recommendations +
                 ", room=" + room +
                 ", board=" + board +
-                ", references=" + references +
                 '}';
     }
 }

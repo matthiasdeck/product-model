@@ -29,7 +29,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
- *
  * @author Matthias Deck
  */
 public class TravelPeriod implements Serializable {

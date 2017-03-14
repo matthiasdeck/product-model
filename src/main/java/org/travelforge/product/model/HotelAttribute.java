@@ -28,7 +28,6 @@ package org.travelforge.product.model;
 import java.util.Objects;
 
 /**
- *
  * @author Matthias Deck
  */
 public class HotelAttribute {
