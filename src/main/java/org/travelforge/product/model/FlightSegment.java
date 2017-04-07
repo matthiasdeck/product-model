@@ -37,13 +37,13 @@ public class FlightSegment implements Serializable {
 
     private Airline airline;
     private String flightNumber;
-    private String travelClass;
+    private String flightClass;
     private String bookingClass;
-    private Integer duration;
     private Airport departureAirport;
     private LocalDateTime departureDateTime;
     private Airport arrivalAirport;
     private LocalDateTime arrivalDateTime;
+    private Integer duration;
 
     public Airline getAirline() {
         return airline;
@@ -61,12 +61,12 @@ public class FlightSegment implements Serializable {
         this.flightNumber = flightNumber;
     }
 
-    public String getTravelClass() {
-        return travelClass;
+    public String getFlightClass() {
+        return flightClass;
     }
 
-    public void setTravelClass(String travelClass) {
-        this.travelClass = travelClass;
+    public void setFlightClass(String flightClass) {
+        this.flightClass = flightClass;
     }
 
     public String getBookingClass() {
@@ -75,14 +75,6 @@ public class FlightSegment implements Serializable {
 
     public void setBookingClass(String bookingClass) {
         this.bookingClass = bookingClass;
-    }
-
-    public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
     }
 
     public Airport getDepartureAirport() {
@@ -117,6 +109,14 @@ public class FlightSegment implements Serializable {
         this.arrivalDateTime = arrivalDateTime;
     }
 
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -126,29 +126,30 @@ public class FlightSegment implements Serializable {
 
         if (airline != null ? !airline.equals(that.airline) : that.airline != null) return false;
         if (flightNumber != null ? !flightNumber.equals(that.flightNumber) : that.flightNumber != null) return false;
-        if (travelClass != null ? !travelClass.equals(that.travelClass) : that.travelClass != null) return false;
+        if (flightClass != null ? !flightClass.equals(that.flightClass) : that.flightClass != null) return false;
         if (bookingClass != null ? !bookingClass.equals(that.bookingClass) : that.bookingClass != null) return false;
-        if (duration != null ? !duration.equals(that.duration) : that.duration != null) return false;
         if (departureAirport != null ? !departureAirport.equals(that.departureAirport) : that.departureAirport != null)
             return false;
         if (departureDateTime != null ? !departureDateTime.equals(that.departureDateTime) : that.departureDateTime != null)
             return false;
         if (arrivalAirport != null ? !arrivalAirport.equals(that.arrivalAirport) : that.arrivalAirport != null)
             return false;
-        return arrivalDateTime != null ? arrivalDateTime.equals(that.arrivalDateTime) : that.arrivalDateTime == null;
+        if (arrivalDateTime != null ? !arrivalDateTime.equals(that.arrivalDateTime) : that.arrivalDateTime != null)
+            return false;
+        return duration != null ? duration.equals(that.duration) : that.duration == null;
     }
 
     @Override
     public int hashCode() {
         int result = airline != null ? airline.hashCode() : 0;
         result = 31 * result + (flightNumber != null ? flightNumber.hashCode() : 0);
-        result = 31 * result + (travelClass != null ? travelClass.hashCode() : 0);
+        result = 31 * result + (flightClass != null ? flightClass.hashCode() : 0);
         result = 31 * result + (bookingClass != null ? bookingClass.hashCode() : 0);
-        result = 31 * result + (duration != null ? duration.hashCode() : 0);
         result = 31 * result + (departureAirport != null ? departureAirport.hashCode() : 0);
         result = 31 * result + (departureDateTime != null ? departureDateTime.hashCode() : 0);
         result = 31 * result + (arrivalAirport != null ? arrivalAirport.hashCode() : 0);
         result = 31 * result + (arrivalDateTime != null ? arrivalDateTime.hashCode() : 0);
+        result = 31 * result + (duration != null ? duration.hashCode() : 0);
         return result;
     }
 
@@ -157,13 +158,13 @@ public class FlightSegment implements Serializable {
         return "FlightSegment{" +
                 "airline=" + airline +
                 ", flightNumber='" + flightNumber + '\'' +
-                ", travelClass='" + travelClass + '\'' +
+                ", flightClass='" + flightClass + '\'' +
                 ", bookingClass='" + bookingClass + '\'' +
-                ", duration=" + duration +
                 ", departureAirport=" + departureAirport +
                 ", departureDateTime=" + departureDateTime +
                 ", arrivalAirport=" + arrivalAirport +
                 ", arrivalDateTime=" + arrivalDateTime +
+                ", duration=" + duration +
                 '}';
     }
 }

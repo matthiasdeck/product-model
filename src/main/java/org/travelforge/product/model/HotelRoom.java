@@ -38,7 +38,8 @@ public class HotelRoom implements Serializable {
     private String code;
     private List<String> codes;
     private String opCode;
-    private String localizedCode;
+    private String bookingCode;
+    private String key;
     private String name;
     private List<HotelRoomAttribute> attributes;
     private List<HotelRoomView> views;
@@ -67,12 +68,20 @@ public class HotelRoom implements Serializable {
         this.opCode = opCode;
     }
 
-    public String getLocalizedCode() {
-        return localizedCode;
+    public String getBookingCode() {
+        return bookingCode;
     }
 
-    public void setLocalizedCode(String localizedCode) {
-        this.localizedCode = localizedCode;
+    public void setBookingCode(String bookingCode) {
+        this.bookingCode = bookingCode;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getName() {
@@ -102,15 +111,16 @@ public class HotelRoom implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof HotelRoom)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         HotelRoom hotelRoom = (HotelRoom) o;
 
         if (code != null ? !code.equals(hotelRoom.code) : hotelRoom.code != null) return false;
         if (codes != null ? !codes.equals(hotelRoom.codes) : hotelRoom.codes != null) return false;
         if (opCode != null ? !opCode.equals(hotelRoom.opCode) : hotelRoom.opCode != null) return false;
-        if (localizedCode != null ? !localizedCode.equals(hotelRoom.localizedCode) : hotelRoom.localizedCode != null)
+        if (bookingCode != null ? !bookingCode.equals(hotelRoom.bookingCode) : hotelRoom.bookingCode != null)
             return false;
+        if (key != null ? !key.equals(hotelRoom.key) : hotelRoom.key != null) return false;
         if (name != null ? !name.equals(hotelRoom.name) : hotelRoom.name != null) return false;
         if (attributes != null ? !attributes.equals(hotelRoom.attributes) : hotelRoom.attributes != null) return false;
         return views != null ? views.equals(hotelRoom.views) : hotelRoom.views == null;
@@ -121,7 +131,8 @@ public class HotelRoom implements Serializable {
         int result = code != null ? code.hashCode() : 0;
         result = 31 * result + (codes != null ? codes.hashCode() : 0);
         result = 31 * result + (opCode != null ? opCode.hashCode() : 0);
-        result = 31 * result + (localizedCode != null ? localizedCode.hashCode() : 0);
+        result = 31 * result + (bookingCode != null ? bookingCode.hashCode() : 0);
+        result = 31 * result + (key != null ? key.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (attributes != null ? attributes.hashCode() : 0);
         result = 31 * result + (views != null ? views.hashCode() : 0);
@@ -134,7 +145,8 @@ public class HotelRoom implements Serializable {
                 "code='" + code + '\'' +
                 ", codes=" + codes +
                 ", opCode='" + opCode + '\'' +
-                ", localizedCode='" + localizedCode + '\'' +
+                ", bookingCode='" + bookingCode + '\'' +
+                ", key='" + key + '\'' +
                 ", name='" + name + '\'' +
                 ", attributes=" + attributes +
                 ", views=" + views +

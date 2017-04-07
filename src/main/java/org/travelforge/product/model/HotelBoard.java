@@ -38,7 +38,7 @@ public class HotelBoard implements Serializable {
     private String code;
     private List<String> codes;
     private String opCode;
-    private String localizedCode;
+    private String key;
     private String name;
 
     public String getCode() {
@@ -65,12 +65,12 @@ public class HotelBoard implements Serializable {
         this.opCode = opCode;
     }
 
-    public String getLocalizedCode() {
-        return localizedCode;
+    public String getKey() {
+        return key;
     }
 
-    public void setLocalizedCode(String localizedCode) {
-        this.localizedCode = localizedCode;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getName() {
@@ -84,15 +84,14 @@ public class HotelBoard implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof HotelBoard)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         HotelBoard that = (HotelBoard) o;
 
         if (code != null ? !code.equals(that.code) : that.code != null) return false;
         if (codes != null ? !codes.equals(that.codes) : that.codes != null) return false;
         if (opCode != null ? !opCode.equals(that.opCode) : that.opCode != null) return false;
-        if (localizedCode != null ? !localizedCode.equals(that.localizedCode) : that.localizedCode != null)
-            return false;
+        if (key != null ? !key.equals(that.key) : that.key != null) return false;
         return name != null ? name.equals(that.name) : that.name == null;
     }
 
@@ -101,7 +100,7 @@ public class HotelBoard implements Serializable {
         int result = code != null ? code.hashCode() : 0;
         result = 31 * result + (codes != null ? codes.hashCode() : 0);
         result = 31 * result + (opCode != null ? opCode.hashCode() : 0);
-        result = 31 * result + (localizedCode != null ? localizedCode.hashCode() : 0);
+        result = 31 * result + (key != null ? key.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
@@ -112,7 +111,7 @@ public class HotelBoard implements Serializable {
                 "code='" + code + '\'' +
                 ", codes=" + codes +
                 ", opCode='" + opCode + '\'' +
-                ", localizedCode='" + localizedCode + '\'' +
+                ", key='" + key + '\'' +
                 ", name='" + name + '\'' +
                 '}';
     }
