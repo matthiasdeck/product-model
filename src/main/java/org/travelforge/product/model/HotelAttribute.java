@@ -25,12 +25,15 @@
  */
 package org.travelforge.product.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author Matthias Deck
  */
-public class HotelAttribute {
+public class HotelAttribute implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String code;
     private String name;
