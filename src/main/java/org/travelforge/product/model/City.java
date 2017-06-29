@@ -30,33 +30,34 @@ import java.io.Serializable;
 /**
  * @author Matthias Deck
  */
-public class City implements Serializable {
+public final class City implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer code;
-    private String name;
+    private final Integer code;
+    private final String name;
 
-    public Integer getCode() {
-        return code;
+    private City(Integer code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public Integer getCode() {
+        return this.code;
     }
 
     public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return this.name;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof City)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         City city = (City) o;
 
@@ -77,5 +78,28 @@ public class City implements Serializable {
                 "code=" + code +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public static final class Builder {
+
+        private Integer code;
+        private String name;
+
+        private Builder() {
+        }
+
+        public City.Builder code(Integer code) {
+            this.code = code;
+            return this;
+        }
+
+        public City.Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public City build() {
+            return new City(code, name);
+        }
     }
 }

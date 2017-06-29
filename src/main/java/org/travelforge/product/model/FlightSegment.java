@@ -31,90 +31,70 @@ import java.time.LocalDateTime;
 /**
  * @author Matthias Deck
  */
-public class FlightSegment implements Serializable {
+public final class FlightSegment implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Airline airline;
-    private String flightNumber;
-    private String flightClass;
-    private String bookingClass;
-    private Airport departureAirport;
-    private LocalDateTime departureDateTime;
-    private Airport arrivalAirport;
-    private LocalDateTime arrivalDateTime;
-    private Integer duration;
+    private final Airline airline;
+    private final String flightNumber;
+    private final String flightClass;
+    private final String bookingClass;
+    private final Airport departureAirport;
+    private final LocalDateTime departureDateTime;
+    private final Airport arrivalAirport;
+    private final LocalDateTime arrivalDateTime;
+    private final Integer duration;
 
-    public Airline getAirline() {
-        return airline;
+    private FlightSegment(Airline airline, String flightNumber, String flightClass, String bookingClass, Airport departureAirport, LocalDateTime departureDateTime, Airport arrivalAirport, LocalDateTime arrivalDateTime, Integer duration) {
+        this.airline = airline;
+        this.flightNumber = flightNumber;
+        this.flightClass = flightClass;
+        this.bookingClass = bookingClass;
+        this.departureAirport = departureAirport;
+        this.departureDateTime = departureDateTime;
+        this.arrivalAirport = arrivalAirport;
+        this.arrivalDateTime = arrivalDateTime;
+        this.duration = duration;
     }
 
-    public void setAirline(Airline airline) {
-        this.airline = airline;
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public Airline getAirline() {
+        return this.airline;
     }
 
     public String getFlightNumber() {
-        return flightNumber;
-    }
-
-    public void setFlightNumber(String flightNumber) {
-        this.flightNumber = flightNumber;
+        return this.flightNumber;
     }
 
     public String getFlightClass() {
-        return flightClass;
-    }
-
-    public void setFlightClass(String flightClass) {
-        this.flightClass = flightClass;
+        return this.flightClass;
     }
 
     public String getBookingClass() {
-        return bookingClass;
-    }
-
-    public void setBookingClass(String bookingClass) {
-        this.bookingClass = bookingClass;
+        return this.bookingClass;
     }
 
     public Airport getDepartureAirport() {
-        return departureAirport;
-    }
-
-    public void setDepartureAirport(Airport departureAirport) {
-        this.departureAirport = departureAirport;
+        return this.departureAirport;
     }
 
     public LocalDateTime getDepartureDateTime() {
-        return departureDateTime;
-    }
-
-    public void setDepartureDateTime(LocalDateTime departureDateTime) {
-        this.departureDateTime = departureDateTime;
+        return this.departureDateTime;
     }
 
     public Airport getArrivalAirport() {
-        return arrivalAirport;
-    }
-
-    public void setArrivalAirport(Airport arrivalAirport) {
-        this.arrivalAirport = arrivalAirport;
+        return this.arrivalAirport;
     }
 
     public LocalDateTime getArrivalDateTime() {
-        return arrivalDateTime;
-    }
-
-    public void setArrivalDateTime(LocalDateTime arrivalDateTime) {
-        this.arrivalDateTime = arrivalDateTime;
+        return this.arrivalDateTime;
     }
 
     public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
+        return this.duration;
     }
 
     @Override
@@ -166,5 +146,70 @@ public class FlightSegment implements Serializable {
                 ", arrivalDateTime=" + arrivalDateTime +
                 ", duration=" + duration +
                 '}';
+    }
+
+    public static final class Builder {
+
+        private Airline airline;
+        private String flightNumber;
+        private String flightClass;
+        private String bookingClass;
+        private Airport departureAirport;
+        private LocalDateTime departureDateTime;
+        private Airport arrivalAirport;
+        private LocalDateTime arrivalDateTime;
+        private Integer duration;
+
+        private Builder() {
+        }
+
+        public FlightSegment.Builder airline(Airline airline) {
+            this.airline = airline;
+            return this;
+        }
+
+        public FlightSegment.Builder flightNumber(String flightNumber) {
+            this.flightNumber = flightNumber;
+            return this;
+        }
+
+        public FlightSegment.Builder flightClass(String flightClass) {
+            this.flightClass = flightClass;
+            return this;
+        }
+
+        public FlightSegment.Builder bookingClass(String bookingClass) {
+            this.bookingClass = bookingClass;
+            return this;
+        }
+
+        public FlightSegment.Builder departureAirport(Airport departureAirport) {
+            this.departureAirport = departureAirport;
+            return this;
+        }
+
+        public FlightSegment.Builder departureDateTime(LocalDateTime departureDateTime) {
+            this.departureDateTime = departureDateTime;
+            return this;
+        }
+
+        public FlightSegment.Builder arrivalAirport(Airport arrivalAirport) {
+            this.arrivalAirport = arrivalAirport;
+            return this;
+        }
+
+        public FlightSegment.Builder arrivalDateTime(LocalDateTime arrivalDateTime) {
+            this.arrivalDateTime = arrivalDateTime;
+            return this;
+        }
+
+        public FlightSegment.Builder duration(Integer duration) {
+            this.duration = duration;
+            return this;
+        }
+
+        public FlightSegment build() {
+            return new FlightSegment(airline, flightNumber, flightClass, bookingClass, departureAirport, departureDateTime, arrivalAirport, arrivalDateTime, duration);
+        }
     }
 }

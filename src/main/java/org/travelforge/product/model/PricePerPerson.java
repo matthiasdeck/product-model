@@ -30,33 +30,34 @@ import java.io.Serializable;
 /**
  * @author Matthias Deck
  */
-public class PricePerPerson implements Serializable {
+public final class PricePerPerson implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String type;
-    private Float amount;
+    private final String type;
+    private final Float amount;
 
-    public String getType() {
-        return type;
+    private PricePerPerson(String type, Float amount) {
+        this.type = type;
+        this.amount = amount;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public String getType() {
+        return this.type;
     }
 
     public Float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Float amount) {
-        this.amount = amount;
+        return this.amount;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PricePerPerson)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         PricePerPerson that = (PricePerPerson) o;
 
@@ -77,5 +78,28 @@ public class PricePerPerson implements Serializable {
                 "type='" + type + '\'' +
                 ", amount=" + amount +
                 '}';
+    }
+
+    public static final class Builder {
+
+        private String type;
+        private Float amount;
+
+        private Builder() {
+        }
+
+        public PricePerPerson.Builder type(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public PricePerPerson.Builder amount(Float amount) {
+            this.amount = amount;
+            return this;
+        }
+
+        public PricePerPerson build() {
+            return new PricePerPerson(type, amount);
+        }
     }
 }

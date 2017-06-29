@@ -26,65 +26,80 @@
 package org.travelforge.product.model;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * @author Matthias Deck
  */
-public class HotelAttribute implements Serializable {
+public final class HotelAttribute implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String code;
-    private String name;
+    private final String code;
+    private final String name;
 
-    public String getCode() {
-        return code;
+    private HotelAttribute(String code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public String getCode() {
+        return this.code;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        HotelAttribute that = (HotelAttribute) o;
+
+        if (code != null ? !code.equals(that.code) : that.code != null) return false;
+        return name != null ? name.equals(that.name) : that.name == null;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.code);
-        hash = 97 * hash + Objects.hashCode(this.name);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final HotelAttribute other = (HotelAttribute) obj;
-        if (!Objects.equals(this.code, other.code)) {
-            return false;
-        }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        return true;
+        int result = code != null ? code.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
-        return "HotelAttribute{" + "code=" + code + ", name=" + name + '}';
+        return "HotelAttribute{" +
+                "code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    public static final class Builder {
+
+        private String code;
+        private String name;
+
+        private Builder() {
+        }
+
+        public HotelAttribute.Builder code(String code) {
+            this.code = code;
+            return this;
+        }
+
+        public HotelAttribute.Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public HotelAttribute build() {
+            return new HotelAttribute(code, name);
+        }
     }
 }

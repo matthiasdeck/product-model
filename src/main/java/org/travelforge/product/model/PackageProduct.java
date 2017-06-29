@@ -26,8 +26,9 @@
 package org.travelforge.product.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Matthias Deck
@@ -36,86 +37,60 @@ public class PackageProduct implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String provider;
-    private TourOperator tourOperator;
-    private Travellers travellers;
-    private TravelPeriod travelPeriod;
-    private Flight flight;
-    private Hotel hotel;
-    private List<Extra> extras;
-    private Price price;
-    private Map<String, Object> references;
+    private final String provider;
+    private final TourOperator tourOperator;
+    private final Travellers travellers;
+    private final TravelPeriod travelPeriod;
+    private final Flight flight;
+    private final Hotel hotel;
+    private final List<Extra> extras;
+    private final Price price;
 
-    public String getProvider() {
-        return provider;
-    }
-
-    public void setProvider(String provider) {
+    private PackageProduct(String provider, TourOperator tourOperator, Travellers travellers, TravelPeriod travelPeriod, Flight flight, Hotel hotel, List<Extra> extras, Price price) {
         this.provider = provider;
-    }
-
-    public TourOperator getTourOperator() {
-        return tourOperator;
-    }
-
-    public void setTourOperator(TourOperator tourOperator) {
         this.tourOperator = tourOperator;
-    }
-
-    public Travellers getTravellers() {
-        return travellers;
-    }
-
-    public void setTravellers(Travellers travellers) {
         this.travellers = travellers;
-    }
-
-    public TravelPeriod getTravelPeriod() {
-        return travelPeriod;
-    }
-
-    public void setTravelPeriod(TravelPeriod travelPeriod) {
         this.travelPeriod = travelPeriod;
-    }
-
-    public Flight getFlight() {
-        return flight;
-    }
-
-    public void setFlight(Flight flight) {
         this.flight = flight;
-    }
-
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
         this.hotel = hotel;
-    }
-
-    public List<Extra> getExtras() {
-        return extras;
-    }
-
-    public void setExtras(List<Extra> extras) {
         this.extras = extras;
-    }
-
-    public Price getPrice() {
-        return price;
-    }
-
-    public void setPrice(Price price) {
         this.price = price;
     }
 
-    public Map<String, Object> getReferences() {
-        return references;
+    public static Builder builder() {
+        return new Builder();
     }
 
-    public void setReferences(Map<String, Object> references) {
-        this.references = references;
+    public String getProvider() {
+        return this.provider;
+    }
+
+    public TourOperator getTourOperator() {
+        return this.tourOperator;
+    }
+
+    public Travellers getTravellers() {
+        return this.travellers;
+    }
+
+    public TravelPeriod getTravelPeriod() {
+        return this.travelPeriod;
+    }
+
+    public Flight getFlight() {
+        return this.flight;
+    }
+
+    public Hotel getHotel() {
+        return this.hotel;
+    }
+
+    public List<Extra> getExtras() {
+        return this.extras;
+    }
+
+    public Price getPrice() {
+        return this.price;
     }
 
     @Override
@@ -132,8 +107,7 @@ public class PackageProduct implements Serializable {
         if (flight != null ? !flight.equals(that.flight) : that.flight != null) return false;
         if (hotel != null ? !hotel.equals(that.hotel) : that.hotel != null) return false;
         if (extras != null ? !extras.equals(that.extras) : that.extras != null) return false;
-        if (price != null ? !price.equals(that.price) : that.price != null) return false;
-        return references != null ? references.equals(that.references) : that.references == null;
+        return price != null ? price.equals(that.price) : that.price == null;
     }
 
     @Override
@@ -146,7 +120,6 @@ public class PackageProduct implements Serializable {
         result = 31 * result + (hotel != null ? hotel.hashCode() : 0);
         result = 31 * result + (extras != null ? extras.hashCode() : 0);
         result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (references != null ? references.hashCode() : 0);
         return result;
     }
 
@@ -161,7 +134,82 @@ public class PackageProduct implements Serializable {
                 ", hotel=" + hotel +
                 ", extras=" + extras +
                 ", price=" + price +
-                ", references=" + references +
                 '}';
+    }
+
+    public static class Builder {
+
+        private String provider;
+        private TourOperator tourOperator;
+        private Travellers travellers;
+        private TravelPeriod travelPeriod;
+        private Flight flight;
+        private Hotel hotel;
+        private List<Extra> extras;
+        private Price price;
+
+        private Builder() {
+        }
+
+        public PackageProduct.Builder provider(String provider) {
+            this.provider = provider;
+            return this;
+        }
+
+        public PackageProduct.Builder tourOperator(TourOperator tourOperator) {
+            this.tourOperator = tourOperator;
+            return this;
+        }
+
+        public PackageProduct.Builder travellers(Travellers travellers) {
+            this.travellers = travellers;
+            return this;
+        }
+
+        public PackageProduct.Builder travelPeriod(TravelPeriod travelPeriod) {
+            this.travelPeriod = travelPeriod;
+            return this;
+        }
+
+        public PackageProduct.Builder flight(Flight flight) {
+            this.flight = flight;
+            return this;
+        }
+
+        public PackageProduct.Builder hotel(Hotel hotel) {
+            this.hotel = hotel;
+            return this;
+        }
+
+        public PackageProduct.Builder extra(Extra extra) {
+            if (this.extras == null) this.extras = new ArrayList<>();
+            this.extras.add(extra);
+            return this;
+        }
+
+        public PackageProduct.Builder extras(Collection<? extends Extra> extras) {
+            if (this.extras == null) this.extras = new ArrayList<>();
+            this.extras.addAll(extras);
+            return this;
+        }
+
+        public PackageProduct.Builder clearExtras() {
+            if (this.extras != null)
+                this.extras.clear();
+            return this;
+        }
+
+        public PackageProduct.Builder price(Price price) {
+            this.price = price;
+            return this;
+        }
+
+        public PackageProduct build() {
+            List<Extra> extras = null;
+            if (this.extras != null && !this.extras.isEmpty()) {
+                extras = java.util.Collections.unmodifiableList(new ArrayList<>(this.extras));
+            }
+            return new PackageProduct(provider, tourOperator, travellers, travelPeriod, flight, hotel, extras, price);
+        }
     }
 }

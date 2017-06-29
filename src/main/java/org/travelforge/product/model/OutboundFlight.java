@@ -25,10 +25,38 @@
  */
 package org.travelforge.product.model;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Matthias Deck
  */
-public class OutboundFlight extends BoundedFlight {
+public final class OutboundFlight extends BoundedFlight {
 
     private static final long serialVersionUID = 1L;
+
+    private OutboundFlight(String provider, Airline airline, String flightNumber, String flightClass, String flightId, String flightCode, String flightKey, String bookingClass, String bookingCode, Airport departureAirport, LocalDateTime departureDateTime, Airport arrivalAirport, LocalDateTime arrivalDateTime, Integer stopOver, Integer duration, List<FlightSegment> segments) {
+        super(provider, airline, flightNumber, flightClass, flightId, flightCode, flightKey, bookingClass, bookingCode, departureAirport, departureDateTime, arrivalAirport, arrivalDateTime, stopOver, duration, segments);
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder extends BoundedFlight.Builder<OutboundFlight> {
+
+        private Builder() {
+            super();
+        }
+
+        @Override
+        public OutboundFlight build() {
+            List<FlightSegment> segments = null;
+            if (this.segments != null && !this.segments.isEmpty()) {
+                segments = java.util.Collections.unmodifiableList(new ArrayList<>(this.segments));
+            }
+            return new OutboundFlight(provider, airline, flightNumber, flightClass, flightId, flightCode, flightKey, bookingClass, bookingCode, departureAirport, departureDateTime, arrivalAirport, arrivalDateTime, stopOver, duration, segments);
+        }
+    }
 }

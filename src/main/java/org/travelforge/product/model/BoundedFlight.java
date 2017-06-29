@@ -27,6 +27,8 @@ package org.travelforge.product.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -36,149 +38,105 @@ public abstract class BoundedFlight implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String provider;
-    private Airline airline;
-    private String flightNumber;
-    private String flightClass;
-    private String flightId;
-    private String flightCode;
-    private String flightKey;
-    private String bookingClass;
-    private String bookingCode;
-    private Airport departureAirport;
-    private LocalDateTime departureDateTime;
-    private Airport arrivalAirport;
-    private LocalDateTime arrivalDateTime;
-    private Integer stopOver;
-    private Integer duration;
-    private List<FlightSegment> segments;
+    private final String provider;
+    private final Airline airline;
+    private final String flightNumber;
+    private final String flightClass;
+    private final String flightId;
+    private final String flightCode;
+    private final String flightKey;
+    private final String bookingClass;
+    private final String bookingCode;
+    private final Airport departureAirport;
+    private final LocalDateTime departureDateTime;
+    private final Airport arrivalAirport;
+    private final LocalDateTime arrivalDateTime;
+    private final Integer stopOver;
+    private final Integer duration;
+    private final List<FlightSegment> segments;
 
-    public String getProvider() {
-        return provider;
+    BoundedFlight(String provider, Airline airline, String flightNumber, String flightClass, String flightId, String flightCode, String flightKey, String bookingClass, String bookingCode, Airport departureAirport, LocalDateTime departureDateTime, Airport arrivalAirport, LocalDateTime arrivalDateTime, Integer stopOver, Integer duration, List<FlightSegment> segments) {
+
+        this.provider = provider;
+        this.airline = airline;
+        this.flightNumber = flightNumber;
+        this.flightClass = flightClass;
+        this.flightId = flightId;
+        this.flightCode = flightCode;
+        this.flightKey = flightKey;
+        this.bookingClass = bookingClass;
+        this.bookingCode = bookingCode;
+        this.departureAirport = departureAirport;
+        this.departureDateTime = departureDateTime;
+        this.arrivalAirport = arrivalAirport;
+        this.arrivalDateTime = arrivalDateTime;
+        this.stopOver = stopOver;
+        this.duration = duration;
+        this.segments = segments;
     }
 
-    public void setProvider(String provider) {
-        this.provider = provider;
+    public String getProvider() {
+        return this.provider;
     }
 
     public Airline getAirline() {
-        return airline;
-    }
-
-    public void setAirline(Airline airline) {
-        this.airline = airline;
+        return this.airline;
     }
 
     public String getFlightNumber() {
-        return flightNumber;
-    }
-
-    public void setFlightNumber(String flightNumber) {
-        this.flightNumber = flightNumber;
+        return this.flightNumber;
     }
 
     public String getFlightClass() {
-        return flightClass;
-    }
-
-    public void setFlightClass(String flightClass) {
-        this.flightClass = flightClass;
+        return this.flightClass;
     }
 
     public String getFlightId() {
-        return flightId;
-    }
-
-    public void setFlightId(String flightId) {
-        this.flightId = flightId;
+        return this.flightId;
     }
 
     public String getFlightCode() {
-        return flightCode;
-    }
-
-    public void setFlightCode(String flightCode) {
-        this.flightCode = flightCode;
+        return this.flightCode;
     }
 
     public String getFlightKey() {
-        return flightKey;
-    }
-
-    public void setFlightKey(String flightKey) {
-        this.flightKey = flightKey;
+        return this.flightKey;
     }
 
     public String getBookingClass() {
-        return bookingClass;
-    }
-
-    public void setBookingClass(String bookingClass) {
-        this.bookingClass = bookingClass;
+        return this.bookingClass;
     }
 
     public String getBookingCode() {
-        return bookingCode;
-    }
-
-    public void setBookingCode(String bookingCode) {
-        this.bookingCode = bookingCode;
+        return this.bookingCode;
     }
 
     public Airport getDepartureAirport() {
-        return departureAirport;
-    }
-
-    public void setDepartureAirport(Airport departureAirport) {
-        this.departureAirport = departureAirport;
+        return this.departureAirport;
     }
 
     public LocalDateTime getDepartureDateTime() {
-        return departureDateTime;
-    }
-
-    public void setDepartureDateTime(LocalDateTime departureDateTime) {
-        this.departureDateTime = departureDateTime;
+        return this.departureDateTime;
     }
 
     public Airport getArrivalAirport() {
-        return arrivalAirport;
-    }
-
-    public void setArrivalAirport(Airport arrivalAirport) {
-        this.arrivalAirport = arrivalAirport;
+        return this.arrivalAirport;
     }
 
     public LocalDateTime getArrivalDateTime() {
-        return arrivalDateTime;
-    }
-
-    public void setArrivalDateTime(LocalDateTime arrivalDateTime) {
-        this.arrivalDateTime = arrivalDateTime;
+        return this.arrivalDateTime;
     }
 
     public Integer getStopOver() {
-        return stopOver;
-    }
-
-    public void setStopOver(Integer stopOver) {
-        this.stopOver = stopOver;
+        return this.stopOver;
     }
 
     public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
+        return this.duration;
     }
 
     public List<FlightSegment> getSegments() {
-        return segments;
-    }
-
-    public void setSegments(List<FlightSegment> segments) {
-        this.segments = segments;
+        return this.segments;
     }
 
     @Override
@@ -212,7 +170,8 @@ public abstract class BoundedFlight implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = provider != null ? provider.hashCode() : 0;
+        int result = getClass().getName().hashCode();
+        result = 31 * result + (provider != null ? provider.hashCode() : 0);
         result = 31 * result + (airline != null ? airline.hashCode() : 0);
         result = 31 * result + (flightNumber != null ? flightNumber.hashCode() : 0);
         result = 31 * result + (flightClass != null ? flightClass.hashCode() : 0);
@@ -233,7 +192,7 @@ public abstract class BoundedFlight implements Serializable {
 
     @Override
     public String toString() {
-        return "BoundedFlight{" +
+        return getClass().getSimpleName() + "{" +
                 "provider='" + provider + '\'' +
                 ", airline=" + airline +
                 ", flightNumber='" + flightNumber + '\'' +
@@ -251,5 +210,123 @@ public abstract class BoundedFlight implements Serializable {
                 ", duration=" + duration +
                 ", segments=" + segments +
                 '}';
+    }
+
+    public abstract static class Builder<T extends BoundedFlight> {
+
+        String provider;
+        Airline airline;
+        String flightNumber;
+        String flightClass;
+        String flightId;
+        String flightCode;
+        String flightKey;
+        String bookingClass;
+        String bookingCode;
+        Airport departureAirport;
+        LocalDateTime departureDateTime;
+        Airport arrivalAirport;
+        LocalDateTime arrivalDateTime;
+        Integer stopOver;
+        Integer duration;
+        List<FlightSegment> segments;
+
+        Builder() {
+        }
+
+        public Builder<T> provider(String provider) {
+            this.provider = provider;
+            return this;
+        }
+
+        public Builder<T> airline(Airline airline) {
+            this.airline = airline;
+            return this;
+        }
+
+        public Builder<T> flightNumber(String flightNumber) {
+            this.flightNumber = flightNumber;
+            return this;
+        }
+
+        public Builder<T> flightClass(String flightClass) {
+            this.flightClass = flightClass;
+            return this;
+        }
+
+        public Builder<T> flightId(String flightId) {
+            this.flightId = flightId;
+            return this;
+        }
+
+        public Builder<T> flightCode(String flightCode) {
+            this.flightCode = flightCode;
+            return this;
+        }
+
+        public Builder<T> flightKey(String flightKey) {
+            this.flightKey = flightKey;
+            return this;
+        }
+
+        public Builder<T> bookingClass(String bookingClass) {
+            this.bookingClass = bookingClass;
+            return this;
+        }
+
+        public Builder<T> bookingCode(String bookingCode) {
+            this.bookingCode = bookingCode;
+            return this;
+        }
+
+        public Builder<T> departureAirport(Airport departureAirport) {
+            this.departureAirport = departureAirport;
+            return this;
+        }
+
+        public Builder<T> departureDateTime(LocalDateTime departureDateTime) {
+            this.departureDateTime = departureDateTime;
+            return this;
+        }
+
+        public Builder<T> arrivalAirport(Airport arrivalAirport) {
+            this.arrivalAirport = arrivalAirport;
+            return this;
+        }
+
+        public Builder<T> arrivalDateTime(LocalDateTime arrivalDateTime) {
+            this.arrivalDateTime = arrivalDateTime;
+            return this;
+        }
+
+        public Builder<T> stopOver(Integer stopOver) {
+            this.stopOver = stopOver;
+            return this;
+        }
+
+        public Builder<T> duration(Integer duration) {
+            this.duration = duration;
+            return this;
+        }
+
+        public Builder<T> segment(FlightSegment segment) {
+            if (this.segments == null) this.segments = new ArrayList<>();
+            this.segments.add(segment);
+            return this;
+        }
+
+        public Builder<T> segments(Collection<? extends FlightSegment> segments) {
+            if (this.segments == null) this.segments = new ArrayList<>();
+            this.segments.addAll(segments);
+            return this;
+        }
+
+        public Builder<T> clearSegments() {
+            if (this.segments != null)
+                this.segments.clear();
+            return this;
+        }
+
+        public abstract T build();
     }
 }

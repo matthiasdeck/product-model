@@ -30,36 +30,34 @@ import java.io.Serializable;
 /**
  * @author Matthias Deck
  */
-public class Flight implements Serializable {
+public final class Flight implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String provider;
-    private OutboundFlight outbound;
-    private InboundFlight inbound;
+    private final String provider;
+    private final OutboundFlight outbound;
+    private final InboundFlight inbound;
 
-    public String getProvider() {
-        return provider;
+    private Flight(String provider, OutboundFlight outbound, InboundFlight inbound) {
+        this.provider = provider;
+        this.outbound = outbound;
+        this.inbound = inbound;
     }
 
-    public void setProvider(String provider) {
-        this.provider = provider;
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public String getProvider() {
+        return this.provider;
     }
 
     public OutboundFlight getOutbound() {
-        return outbound;
-    }
-
-    public void setOutbound(OutboundFlight outbound) {
-        this.outbound = outbound;
+        return this.outbound;
     }
 
     public InboundFlight getInbound() {
-        return inbound;
-    }
-
-    public void setInbound(InboundFlight inbound) {
-        this.inbound = inbound;
+        return this.inbound;
     }
 
     @Override
@@ -89,5 +87,34 @@ public class Flight implements Serializable {
                 ", outbound=" + outbound +
                 ", inbound=" + inbound +
                 '}';
+    }
+
+    public static final class Builder {
+
+        private String provider;
+        private OutboundFlight outbound;
+        private InboundFlight inbound;
+
+        private Builder() {
+        }
+
+        public Flight.Builder provider(String provider) {
+            this.provider = provider;
+            return this;
+        }
+
+        public Flight.Builder outbound(OutboundFlight outbound) {
+            this.outbound = outbound;
+            return this;
+        }
+
+        public Flight.Builder inbound(InboundFlight inbound) {
+            this.inbound = inbound;
+            return this;
+        }
+
+        public Flight build() {
+            return new Flight(provider, outbound, inbound);
+        }
     }
 }

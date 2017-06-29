@@ -30,33 +30,34 @@ import java.io.Serializable;
 /**
  * @author Matthias Deck
  */
-public class TourOperator implements Serializable {
+public final class TourOperator implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String code;
-    private String name;
+    private final String code;
+    private final String name;
 
-    public String getCode() {
-        return code;
+    private TourOperator(String code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public String getCode() {
+        return this.code;
     }
 
     public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return this.name;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TourOperator)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         TourOperator that = (TourOperator) o;
 
@@ -77,5 +78,28 @@ public class TourOperator implements Serializable {
                 "code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public static final class Builder {
+
+        private String code;
+        private String name;
+
+        private Builder() {
+        }
+
+        public TourOperator.Builder code(String code) {
+            this.code = code;
+            return this;
+        }
+
+        public TourOperator.Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public TourOperator build() {
+            return new TourOperator(code, name);
+        }
     }
 }

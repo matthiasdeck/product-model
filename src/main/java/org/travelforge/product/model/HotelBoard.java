@@ -26,59 +26,44 @@
 package org.travelforge.product.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author Matthias Deck
  */
-public class HotelBoard implements Serializable {
+public final class HotelBoard implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String code;
-    private List<String> codes;
-    private String opCode;
-    private String key;
-    private String name;
+    private final String code;
+    private final String opCode;
+    private final String key;
+    private final String name;
+
+    private HotelBoard(String code, String opCode, String key, String name) {
+        this.code = code;
+        this.opCode = opCode;
+        this.key = key;
+        this.name = name;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public List<String> getCodes() {
-        return codes;
-    }
-
-    public void setCodes(List<String> codes) {
-        this.codes = codes;
+        return this.code;
     }
 
     public String getOpCode() {
-        return opCode;
-    }
-
-    public void setOpCode(String opCode) {
-        this.opCode = opCode;
+        return this.opCode;
     }
 
     public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
+        return this.key;
     }
 
     public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return this.name;
     }
 
     @Override
@@ -89,7 +74,6 @@ public class HotelBoard implements Serializable {
         HotelBoard that = (HotelBoard) o;
 
         if (code != null ? !code.equals(that.code) : that.code != null) return false;
-        if (codes != null ? !codes.equals(that.codes) : that.codes != null) return false;
         if (opCode != null ? !opCode.equals(that.opCode) : that.opCode != null) return false;
         if (key != null ? !key.equals(that.key) : that.key != null) return false;
         return name != null ? name.equals(that.name) : that.name == null;
@@ -98,7 +82,6 @@ public class HotelBoard implements Serializable {
     @Override
     public int hashCode() {
         int result = code != null ? code.hashCode() : 0;
-        result = 31 * result + (codes != null ? codes.hashCode() : 0);
         result = 31 * result + (opCode != null ? opCode.hashCode() : 0);
         result = 31 * result + (key != null ? key.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
@@ -109,10 +92,43 @@ public class HotelBoard implements Serializable {
     public String toString() {
         return "HotelBoard{" +
                 "code='" + code + '\'' +
-                ", codes=" + codes +
                 ", opCode='" + opCode + '\'' +
                 ", key='" + key + '\'' +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public static final class Builder {
+        private String code;
+        private String opCode;
+        private String key;
+        private String name;
+
+        private Builder() {
+        }
+
+        public HotelBoard.Builder code(String code) {
+            this.code = code;
+            return this;
+        }
+
+        public HotelBoard.Builder opCode(String opCode) {
+            this.opCode = opCode;
+            return this;
+        }
+
+        public HotelBoard.Builder key(String key) {
+            this.key = key;
+            return this;
+        }
+
+        public HotelBoard.Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public HotelBoard build() {
+            return new HotelBoard(code, opCode, key, name);
+        }
     }
 }

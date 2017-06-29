@@ -26,86 +26,65 @@
 package org.travelforge.product.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * @author Matthias Deck
  */
-public class HotelRoom implements Serializable {
+public final class HotelRoom implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String code;
-    private List<String> codes;
-    private String opCode;
-    private String bookingCode;
-    private String key;
-    private String name;
-    private List<HotelRoomAttribute> attributes;
-    private List<HotelRoomView> views;
+    private final String code;
+    private final String opCode;
+    private final String bookingCode;
+    private final String key;
+    private final String name;
+    private final List<HotelRoomAttribute> attributes;
+    private final List<HotelRoomView> views;
+
+    private HotelRoom(String code, String opCode, String bookingCode, String key, String name, List<HotelRoomAttribute> attributes, List<HotelRoomView> views) {
+        this.code = code;
+        this.opCode = opCode;
+        this.bookingCode = bookingCode;
+        this.key = key;
+        this.name = name;
+        this.attributes = attributes;
+        this.views = views;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public List<String> getCodes() {
-        return codes;
-    }
-
-    public void setCodes(List<String> codes) {
-        this.codes = codes;
+        return this.code;
     }
 
     public String getOpCode() {
-        return opCode;
-    }
-
-    public void setOpCode(String opCode) {
-        this.opCode = opCode;
+        return this.opCode;
     }
 
     public String getBookingCode() {
-        return bookingCode;
-    }
-
-    public void setBookingCode(String bookingCode) {
-        this.bookingCode = bookingCode;
+        return this.bookingCode;
     }
 
     public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
+        return this.key;
     }
 
     public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return this.name;
     }
 
     public List<HotelRoomAttribute> getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(List<HotelRoomAttribute> attributes) {
-        this.attributes = attributes;
+        return this.attributes;
     }
 
     public List<HotelRoomView> getViews() {
-        return views;
-    }
-
-    public void setViews(List<HotelRoomView> views) {
-        this.views = views;
+        return this.views;
     }
 
     @Override
@@ -116,7 +95,6 @@ public class HotelRoom implements Serializable {
         HotelRoom hotelRoom = (HotelRoom) o;
 
         if (code != null ? !code.equals(hotelRoom.code) : hotelRoom.code != null) return false;
-        if (codes != null ? !codes.equals(hotelRoom.codes) : hotelRoom.codes != null) return false;
         if (opCode != null ? !opCode.equals(hotelRoom.opCode) : hotelRoom.opCode != null) return false;
         if (bookingCode != null ? !bookingCode.equals(hotelRoom.bookingCode) : hotelRoom.bookingCode != null)
             return false;
@@ -129,7 +107,6 @@ public class HotelRoom implements Serializable {
     @Override
     public int hashCode() {
         int result = code != null ? code.hashCode() : 0;
-        result = 31 * result + (codes != null ? codes.hashCode() : 0);
         result = 31 * result + (opCode != null ? opCode.hashCode() : 0);
         result = 31 * result + (bookingCode != null ? bookingCode.hashCode() : 0);
         result = 31 * result + (key != null ? key.hashCode() : 0);
@@ -143,7 +120,6 @@ public class HotelRoom implements Serializable {
     public String toString() {
         return "HotelRoom{" +
                 "code='" + code + '\'' +
-                ", codes=" + codes +
                 ", opCode='" + opCode + '\'' +
                 ", bookingCode='" + bookingCode + '\'' +
                 ", key='" + key + '\'' +
@@ -151,5 +127,92 @@ public class HotelRoom implements Serializable {
                 ", attributes=" + attributes +
                 ", views=" + views +
                 '}';
+    }
+
+    public static final class Builder {
+
+        private String code;
+        private String opCode;
+        private String bookingCode;
+        private String key;
+        private String name;
+        private List<HotelRoomAttribute> attributes;
+        private List<HotelRoomView> views;
+
+        private Builder() {
+        }
+
+        public HotelRoom.Builder code(String code) {
+            this.code = code;
+            return this;
+        }
+
+        public HotelRoom.Builder opCode(String opCode) {
+            this.opCode = opCode;
+            return this;
+        }
+
+        public HotelRoom.Builder bookingCode(String bookingCode) {
+            this.bookingCode = bookingCode;
+            return this;
+        }
+
+        public HotelRoom.Builder key(String key) {
+            this.key = key;
+            return this;
+        }
+
+        public HotelRoom.Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public HotelRoom.Builder attribute(HotelRoomAttribute attribute) {
+            if (this.attributes == null) this.attributes = new ArrayList<>();
+            this.attributes.add(attribute);
+            return this;
+        }
+
+        public HotelRoom.Builder attributes(Collection<? extends HotelRoomAttribute> attributes) {
+            if (this.attributes == null) this.attributes = new ArrayList<>();
+            this.attributes.addAll(attributes);
+            return this;
+        }
+
+        public HotelRoom.Builder clearAttributes() {
+            if (this.attributes != null)
+                this.attributes.clear();
+            return this;
+        }
+
+        public HotelRoom.Builder view(HotelRoomView view) {
+            if (this.views == null) this.views = new ArrayList<>();
+            this.views.add(view);
+            return this;
+        }
+
+        public HotelRoom.Builder views(Collection<? extends HotelRoomView> views) {
+            if (this.views == null) this.views = new ArrayList<>();
+            this.views.addAll(views);
+            return this;
+        }
+
+        public HotelRoom.Builder clearViews() {
+            if (this.views != null)
+                this.views.clear();
+            return this;
+        }
+
+        public HotelRoom build() {
+            List<HotelRoomAttribute> attributes = null;
+            if (this.attributes != null && !this.attributes.isEmpty()) {
+                attributes = java.util.Collections.unmodifiableList(new ArrayList<>(this.attributes));
+            }
+            List<HotelRoomView> views = null;
+            if (this.views != null && !this.views.isEmpty()) {
+                views = java.util.Collections.unmodifiableList(new ArrayList<>(this.views));
+            }
+            return new HotelRoom(code, opCode, bookingCode, key, name, attributes, views);
+        }
     }
 }

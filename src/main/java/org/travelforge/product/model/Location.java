@@ -30,60 +30,52 @@ import java.io.Serializable;
 /**
  * @author Matthias Deck
  */
-public class Location implements Serializable {
+public final class Location implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Country country;
-    private Region region;
-    private City city;
-    private Float latitude;
-    private Float longitude;
+    private final Country country;
+    private final Region region;
+    private final City city;
+    private final Float latitude;
+    private final Float longitude;
 
-    public Country getCountry() {
-        return country;
+    private Location(Country country, Region region, City city, Float latitude, Float longitude) {
+        this.country = country;
+        this.region = region;
+        this.city = city;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public Country getCountry() {
+        return this.country;
     }
 
     public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
+        return this.region;
     }
 
     public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
+        return this.city;
     }
 
     public Float getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Float latitude) {
-        this.latitude = latitude;
+        return this.latitude;
     }
 
     public Float getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Float longitude) {
-        this.longitude = longitude;
+        return this.longitude;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Location)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Location location = (Location) o;
 
@@ -113,5 +105,46 @@ public class Location implements Serializable {
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 '}';
+    }
+
+    public static final class Builder {
+
+        private Country country;
+        private Region region;
+        private City city;
+        private Float latitude;
+        private Float longitude;
+
+        private Builder() {
+        }
+
+        public Location.Builder country(Country country) {
+            this.country = country;
+            return this;
+        }
+
+        public Location.Builder region(Region region) {
+            this.region = region;
+            return this;
+        }
+
+        public Location.Builder city(City city) {
+            this.city = city;
+            return this;
+        }
+
+        public Location.Builder latitude(Float latitude) {
+            this.latitude = latitude;
+            return this;
+        }
+
+        public Location.Builder longitude(Float longitude) {
+            this.longitude = longitude;
+            return this;
+        }
+
+        public Location build() {
+            return new Location(country, region, city, latitude, longitude);
+        }
     }
 }

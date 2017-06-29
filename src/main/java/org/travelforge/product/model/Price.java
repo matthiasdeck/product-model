@@ -26,56 +26,53 @@
 package org.travelforge.product.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * @author Matthias Deck
  */
-public class Price implements Serializable {
+public final class Price implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String currency;
-    private Float amountTotal;
-    private Float amountPerPerson;
-    private List<PricePerPerson> pricesPerPerson;
+    private final String currency;
+    private final Float amountTotal;
+    private final Float amountPerPerson;
+    private final List<PricePerPerson> pricesPerPerson;
 
-    public String getCurrency() {
-        return currency;
+    private Price(String currency, Float amountTotal, Float amountPerPerson, List<PricePerPerson> pricesPerPerson) {
+        this.currency = currency;
+        this.amountTotal = amountTotal;
+        this.amountPerPerson = amountPerPerson;
+        this.pricesPerPerson = pricesPerPerson;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public String getCurrency() {
+        return this.currency;
     }
 
     public Float getAmountTotal() {
-        return amountTotal;
-    }
-
-    public void setAmountTotal(Float amountTotal) {
-        this.amountTotal = amountTotal;
+        return this.amountTotal;
     }
 
     public Float getAmountPerPerson() {
-        return amountPerPerson;
-    }
-
-    public void setAmountPerPerson(Float amountPerPerson) {
-        this.amountPerPerson = amountPerPerson;
+        return this.amountPerPerson;
     }
 
     public List<PricePerPerson> getPricesPerPerson() {
-        return pricesPerPerson;
-    }
-
-    public void setPricesPerPerson(List<PricePerPerson> pricesPerPerson) {
-        this.pricesPerPerson = pricesPerPerson;
+        return this.pricesPerPerson;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Price)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Price price = (Price) o;
 
@@ -103,5 +100,57 @@ public class Price implements Serializable {
                 ", amountPerPerson=" + amountPerPerson +
                 ", pricesPerPerson=" + pricesPerPerson +
                 '}';
+    }
+
+    public static final class Builder {
+
+        private String currency;
+        private Float amountTotal;
+        private Float amountPerPerson;
+        private List<PricePerPerson> pricesPerPerson;
+
+        private Builder() {
+        }
+
+        public Price.Builder currency(String currency) {
+            this.currency = currency;
+            return this;
+        }
+
+        public Price.Builder amountTotal(Float amountTotal) {
+            this.amountTotal = amountTotal;
+            return this;
+        }
+
+        public Price.Builder amountPerPerson(Float amountPerPerson) {
+            this.amountPerPerson = amountPerPerson;
+            return this;
+        }
+
+        public Price.Builder pricePerPerson(PricePerPerson pricePerPerson) {
+            if (this.pricesPerPerson == null) this.pricesPerPerson = new ArrayList<>();
+            this.pricesPerPerson.add(pricePerPerson);
+            return this;
+        }
+
+        public Price.Builder pricesPerPerson(Collection<? extends PricePerPerson> pricesPerPerson) {
+            if (this.pricesPerPerson == null) this.pricesPerPerson = new ArrayList<>();
+            this.pricesPerPerson.addAll(pricesPerPerson);
+            return this;
+        }
+
+        public Price.Builder clearPricesPerPerson() {
+            if (this.pricesPerPerson != null)
+                this.pricesPerPerson.clear();
+            return this;
+        }
+
+        public Price build() {
+            List<PricePerPerson> pricesPerPerson = null;
+            if (this.pricesPerPerson != null && !this.pricesPerPerson.isEmpty()) {
+                pricesPerPerson = java.util.Collections.unmodifiableList(new ArrayList<>(this.pricesPerPerson));
+            }
+            return new Price(currency, amountTotal, amountPerPerson, pricesPerPerson);
+        }
     }
 }

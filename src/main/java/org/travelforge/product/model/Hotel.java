@@ -26,105 +26,81 @@
 package org.travelforge.product.model;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Matthias Deck
  */
-public class Hotel implements Serializable {
+public final class Hotel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String provider;
-    private Integer code;
-    private String productCode;
-    private String name;
-    private Float category;
-    private Location location;
-    private List<HotelAttribute> attributes;
-    private Map<String, Number> recommendations;
-    private HotelRoom room;
-    private HotelBoard board;
+    private final String provider;
+    private final Integer code;
+    private final String productCode;
+    private final String name;
+    private final Float category;
+    private final Location location;
+    private final List<HotelAttribute> attributes;
+    private final Map<String, Number> recommendations;
+    private final HotelRoom room;
+    private final HotelBoard board;
 
-    public String getProvider() {
-        return provider;
+    private Hotel(String provider, Integer code, String productCode, String name, Float category, Location location, List<HotelAttribute> attributes, Map<String, Number> recommendations, HotelRoom room, HotelBoard board) {
+        this.provider = provider;
+        this.code = code;
+        this.productCode = productCode;
+        this.name = name;
+        this.category = category;
+        this.location = location;
+        this.attributes = attributes;
+        this.recommendations = recommendations;
+        this.room = room;
+        this.board = board;
     }
 
-    public void setProvider(String provider) {
-        this.provider = provider;
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public String getProvider() {
+        return this.provider;
     }
 
     public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
+        return this.code;
     }
 
     public String getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
+        return this.productCode;
     }
 
     public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return this.name;
     }
 
     public Float getCategory() {
-        return category;
-    }
-
-    public void setCategory(Float category) {
-        this.category = category;
+        return this.category;
     }
 
     public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
+        return this.location;
     }
 
     public List<HotelAttribute> getAttributes() {
-        return attributes;
-    }
-
-    public void setAttributes(List<HotelAttribute> attributes) {
-        this.attributes = attributes;
+        return this.attributes;
     }
 
     public Map<String, Number> getRecommendations() {
-        return recommendations;
-    }
-
-    public void setRecommendations(Map<String, Number> recommendations) {
-        this.recommendations = recommendations;
+        return this.recommendations;
     }
 
     public HotelRoom getRoom() {
-        return room;
-    }
-
-    public void setRoom(HotelRoom room) {
-        this.room = room;
+        return this.room;
     }
 
     public HotelBoard getBoard() {
-        return board;
-    }
-
-    public void setBoard(HotelBoard board) {
-        this.board = board;
+        return this.board;
     }
 
     @Override
@@ -176,5 +152,115 @@ public class Hotel implements Serializable {
                 ", room=" + room +
                 ", board=" + board +
                 '}';
+    }
+
+    public static final class Builder {
+
+        private String provider;
+        private Integer code;
+        private String productCode;
+        private String name;
+        private Float category;
+        private Location location;
+        private List<HotelAttribute> attributes;
+        private Map<String, Number> recommendations;
+        private HotelRoom room;
+        private HotelBoard board;
+
+        private Builder() {
+        }
+
+        public Hotel.Builder provider(String provider) {
+            this.provider = provider;
+            return this;
+        }
+
+        public Hotel.Builder code(Integer code) {
+            this.code = code;
+            return this;
+        }
+
+        public Hotel.Builder productCode(String productCode) {
+            this.productCode = productCode;
+            return this;
+        }
+
+        public Hotel.Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Hotel.Builder category(Float category) {
+            this.category = category;
+            return this;
+        }
+
+        public Hotel.Builder location(Location location) {
+            this.location = location;
+            return this;
+        }
+
+        public Hotel.Builder attribute(HotelAttribute attribute) {
+            if (this.attributes == null) this.attributes = new ArrayList<>();
+            this.attributes.add(attribute);
+            return this;
+        }
+
+        public Hotel.Builder attributes(Collection<? extends HotelAttribute> attributes) {
+            if (this.attributes == null) this.attributes = new ArrayList<>();
+            this.attributes.addAll(attributes);
+            return this;
+        }
+
+        public Hotel.Builder clearAttributes() {
+            if (this.attributes != null)
+                this.attributes.clear();
+            return this;
+        }
+
+        public Hotel.Builder recommendation(String key, Number value) {
+            if (this.recommendations == null) {
+                this.recommendations = new LinkedHashMap<>();
+            }
+            this.recommendations.put(key, value);
+            return this;
+        }
+
+        public Hotel.Builder recommendations(Map<? extends String, ? extends Number> recommendations) {
+            if (this.recommendations == null) {
+                this.recommendations = new LinkedHashMap<>();
+            }
+            this.recommendations.putAll(recommendations);
+            return this;
+        }
+
+        public Hotel.Builder clearRecommendations() {
+            if (this.recommendations != null) {
+                this.recommendations.clear();
+            }
+            return this;
+        }
+
+        public Hotel.Builder room(HotelRoom room) {
+            this.room = room;
+            return this;
+        }
+
+        public Hotel.Builder board(HotelBoard board) {
+            this.board = board;
+            return this;
+        }
+
+        public Hotel build() {
+            List<HotelAttribute> attributes = null;
+            if (this.attributes != null && !this.attributes.isEmpty()) {
+                attributes = java.util.Collections.unmodifiableList(new ArrayList<>(this.attributes));
+            }
+            Map<String, Number> recommendations = null;
+            if (this.recommendations != null && !this.recommendations.isEmpty()) {
+                recommendations = Collections.unmodifiableMap(new LinkedHashMap<>(this.recommendations));
+            }
+            return new Hotel(provider, code, productCode, name, category, location, attributes, recommendations, room, board);
+        }
     }
 }

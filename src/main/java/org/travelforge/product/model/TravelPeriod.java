@@ -31,42 +31,40 @@ import java.time.LocalDate;
 /**
  * @author Matthias Deck
  */
-public class TravelPeriod implements Serializable {
+public final class TravelPeriod implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private LocalDate departureDate;
-    private LocalDate returnDate;
-    private Integer duration;
+    private final LocalDate departureDate;
+    private final LocalDate returnDate;
+    private final Integer duration;
 
-    public LocalDate getDepartureDate() {
-        return departureDate;
+    private TravelPeriod(LocalDate departureDate, LocalDate returnDate, Integer duration) {
+        this.departureDate = departureDate;
+        this.returnDate = returnDate;
+        this.duration = duration;
     }
 
-    public void setDepartureDate(LocalDate departureDate) {
-        this.departureDate = departureDate;
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public LocalDate getDepartureDate() {
+        return this.departureDate;
     }
 
     public LocalDate getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(LocalDate returnDate) {
-        this.returnDate = returnDate;
+        return this.returnDate;
     }
 
     public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
+        return this.duration;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TravelPeriod)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         TravelPeriod that = (TravelPeriod) o;
 
@@ -91,5 +89,34 @@ public class TravelPeriod implements Serializable {
                 ", returnDate=" + returnDate +
                 ", duration=" + duration +
                 '}';
+    }
+
+    public static final class Builder {
+
+        private LocalDate departureDate;
+        private LocalDate returnDate;
+        private Integer duration;
+
+        private Builder() {
+        }
+
+        public TravelPeriod.Builder departureDate(LocalDate departureDate) {
+            this.departureDate = departureDate;
+            return this;
+        }
+
+        public TravelPeriod.Builder returnDate(LocalDate returnDate) {
+            this.returnDate = returnDate;
+            return this;
+        }
+
+        public TravelPeriod.Builder duration(Integer duration) {
+            this.duration = duration;
+            return this;
+        }
+
+        public TravelPeriod build() {
+            return new TravelPeriod(departureDate, returnDate, duration);
+        }
     }
 }

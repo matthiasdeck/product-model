@@ -30,33 +30,34 @@ import java.io.Serializable;
 /**
  * @author Matthias Deck
  */
-public class Extra implements Serializable {
+public final class Extra implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String code;
-    private String name;
+    private final String code;
+    private final String name;
 
-    public String getCode() {
-        return code;
+    private Extra(String code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public String getCode() {
+        return this.code;
     }
 
     public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return this.name;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Extra)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Extra extra = (Extra) o;
 
@@ -77,5 +78,28 @@ public class Extra implements Serializable {
                 "code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public static final class Builder {
+
+        private String code;
+        private String name;
+
+        private Builder() {
+        }
+
+        public Extra.Builder code(String code) {
+            this.code = code;
+            return this;
+        }
+
+        public Extra.Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Extra build() {
+            return new Extra(code, name);
+        }
     }
 }
