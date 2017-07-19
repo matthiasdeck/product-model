@@ -25,11 +25,15 @@
  */
 package org.travelforge.product.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 import java.io.Serializable;
 
 /**
  * @author Matthias Deck
  */
+@JsonDeserialize(builder=Flight.Builder.class)
 public final class Flight implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -89,6 +93,7 @@ public final class Flight implements Serializable {
                 '}';
     }
 
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
 
         private String provider;

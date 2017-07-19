@@ -25,6 +25,9 @@
  */
 package org.travelforge.product.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,6 +37,7 @@ import java.util.List;
 /**
  * @author Matthias Deck
  */
+@JsonDeserialize(builder=Travellers.Builder.class)
 public final class Travellers implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -93,6 +97,7 @@ public final class Travellers implements Serializable {
                 '}';
     }
 
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
 
         private Integer adults;
@@ -107,50 +112,28 @@ public final class Travellers implements Serializable {
             return this;
         }
 
-        public Travellers.Builder childAge(Integer childAge) {
-            if (this.childrenAge == null) this.childrenAge = new ArrayList<>();
-            this.childrenAge.add(childAge);
-            return this;
-        }
-
         public Travellers.Builder childrenAge(Collection<? extends Integer> childrenAge) {
-            if (this.childrenAge == null) this.childrenAge = new ArrayList<>();
-            this.childrenAge.addAll(childrenAge);
-            return this;
-        }
-
-        public Travellers.Builder clearChildrenAge() {
-            if (this.childrenAge != null)
-                this.childrenAge.clear();
-            return this;
-        }
-
-        public Travellers.Builder childDateOfBirth(LocalDate childDateOfBirth) {
-            if (this.childrenDateOfBirth == null) this.childrenDateOfBirth = new ArrayList<>();
-            this.childrenDateOfBirth.add(childDateOfBirth);
+            if (childrenAge != null) {
+                this.childrenAge = new ArrayList<>(childrenAge);
+            }
             return this;
         }
 
         public Travellers.Builder childrenDateOfBirth(Collection<? extends LocalDate> childrenDateOfBirth) {
-            if (this.childrenDateOfBirth == null) this.childrenDateOfBirth = new ArrayList<>();
-            this.childrenDateOfBirth.addAll(childrenDateOfBirth);
-            return this;
-        }
-
-        public Travellers.Builder clearChildrenDateOfBirth() {
-            if (this.childrenDateOfBirth != null)
-                this.childrenDateOfBirth.clear();
+            if (childrenDateOfBirth != null) {
+                this.childrenDateOfBirth = new ArrayList<>(childrenDateOfBirth);
+            }
             return this;
         }
 
         public Travellers build() {
             List<Integer> childrenAge = null;
             if (this.childrenAge != null && !this.childrenAge.isEmpty()) {
-                childrenAge = java.util.Collections.unmodifiableList(new ArrayList<>(this.childrenAge));
+                childrenAge = java.util.Collections.unmodifiableList(this.childrenAge);
             }
             List<LocalDate> childrenDateOfBirth = null;
             if (this.childrenDateOfBirth != null && !this.childrenDateOfBirth.isEmpty()) {
-                childrenDateOfBirth = java.util.Collections.unmodifiableList(new ArrayList<>(this.childrenDateOfBirth));
+                childrenDateOfBirth = java.util.Collections.unmodifiableList(this.childrenDateOfBirth);
             }
             return new Travellers(adults, childrenAge, childrenDateOfBirth);
         }

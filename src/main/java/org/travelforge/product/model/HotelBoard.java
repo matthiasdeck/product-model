@@ -25,22 +25,31 @@
  */
 package org.travelforge.product.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Matthias Deck
  */
+@JsonDeserialize(builder=HotelBoard.Builder.class)
 public final class HotelBoard implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private final String code;
+    private final List<String> codes;
     private final String opCode;
     private final String key;
     private final String name;
 
-    private HotelBoard(String code, String opCode, String key, String name) {
+    private HotelBoard(String code, List<String> codes, String opCode, String key, String name) {
         this.code = code;
+        this.codes = codes;
         this.opCode = opCode;
         this.key = key;
         this.name = name;
@@ -52,6 +61,10 @@ public final class HotelBoard implements Serializable {
 
     public String getCode() {
         return this.code;
+    }
+
+    public List<String> getCodes() {
+        return codes;
     }
 
     public String getOpCode() {
@@ -74,6 +87,7 @@ public final class HotelBoard implements Serializable {
         HotelBoard that = (HotelBoard) o;
 
         if (code != null ? !code.equals(that.code) : that.code != null) return false;
+        if (codes != null ? !codes.equals(that.codes) : that.codes != null) return false;
         if (opCode != null ? !opCode.equals(that.opCode) : that.opCode != null) return false;
         if (key != null ? !key.equals(that.key) : that.key != null) return false;
         return name != null ? name.equals(that.name) : that.name == null;
@@ -82,6 +96,7 @@ public final class HotelBoard implements Serializable {
     @Override
     public int hashCode() {
         int result = code != null ? code.hashCode() : 0;
+        result = 31 * result + (codes != null ? codes.hashCode() : 0);
         result = 31 * result + (opCode != null ? opCode.hashCode() : 0);
         result = 31 * result + (key != null ? key.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
@@ -92,14 +107,18 @@ public final class HotelBoard implements Serializable {
     public String toString() {
         return "HotelBoard{" +
                 "code='" + code + '\'' +
+                ", codes=" + codes +
                 ", opCode='" + opCode + '\'' +
                 ", key='" + key + '\'' +
                 ", name='" + name + '\'' +
                 '}';
     }
 
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
+
         private String code;
+        private List<String> codes;
         private String opCode;
         private String key;
         private String name;
@@ -109,6 +128,13 @@ public final class HotelBoard implements Serializable {
 
         public HotelBoard.Builder code(String code) {
             this.code = code;
+            return this;
+        }
+
+        public HotelBoard.Builder codes(Collection<String> codes) {
+            if (codes != null) {
+                this.codes = new ArrayList<>(codes);
+            }
             return this;
         }
 
@@ -128,7 +154,11 @@ public final class HotelBoard implements Serializable {
         }
 
         public HotelBoard build() {
-            return new HotelBoard(code, opCode, key, name);
+            List<String> codes = null;
+            if (this.codes != null && !this.codes.isEmpty()) {
+                codes = java.util.Collections.unmodifiableList(this.codes);
+            }
+            return new HotelBoard(code, codes, opCode, key, name);
         }
     }
 }

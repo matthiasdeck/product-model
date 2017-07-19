@@ -55,7 +55,7 @@ public abstract class BoundedFlight implements Serializable {
     private final Integer duration;
     private final List<FlightSegment> segments;
 
-    BoundedFlight(String provider, Airline airline, String flightNumber, String flightClass, String flightId, String flightCode, String flightKey, String bookingClass, String bookingCode, Airport departureAirport, LocalDateTime departureDateTime, Airport arrivalAirport, LocalDateTime arrivalDateTime, Integer stopOver, Integer duration, List<FlightSegment> segments) {
+    protected BoundedFlight(String provider, Airline airline, String flightNumber, String flightClass, String flightId, String flightCode, String flightKey, String bookingClass, String bookingCode, Airport departureAirport, LocalDateTime departureDateTime, Airport arrivalAirport, LocalDateTime arrivalDateTime, Integer stopOver, Integer duration, List<FlightSegment> segments) {
 
         this.provider = provider;
         this.airline = airline;
@@ -214,24 +214,24 @@ public abstract class BoundedFlight implements Serializable {
 
     public abstract static class Builder<T extends BoundedFlight> {
 
-        String provider;
-        Airline airline;
-        String flightNumber;
-        String flightClass;
-        String flightId;
-        String flightCode;
-        String flightKey;
-        String bookingClass;
-        String bookingCode;
-        Airport departureAirport;
-        LocalDateTime departureDateTime;
-        Airport arrivalAirport;
-        LocalDateTime arrivalDateTime;
-        Integer stopOver;
-        Integer duration;
-        List<FlightSegment> segments;
+        protected String provider;
+        protected Airline airline;
+        protected String flightNumber;
+        protected String flightClass;
+        protected String flightId;
+        protected String flightCode;
+        protected String flightKey;
+        protected String bookingClass;
+        protected String bookingCode;
+        protected Airport departureAirport;
+        protected LocalDateTime departureDateTime;
+        protected Airport arrivalAirport;
+        protected LocalDateTime arrivalDateTime;
+        protected Integer stopOver;
+        protected Integer duration;
+        protected List<FlightSegment> segments;
 
-        Builder() {
+        protected Builder() {
         }
 
         public Builder<T> provider(String provider) {
@@ -309,21 +309,10 @@ public abstract class BoundedFlight implements Serializable {
             return this;
         }
 
-        public Builder<T> segment(FlightSegment segment) {
-            if (this.segments == null) this.segments = new ArrayList<>();
-            this.segments.add(segment);
-            return this;
-        }
-
         public Builder<T> segments(Collection<? extends FlightSegment> segments) {
-            if (this.segments == null) this.segments = new ArrayList<>();
-            this.segments.addAll(segments);
-            return this;
-        }
-
-        public Builder<T> clearSegments() {
-            if (this.segments != null)
-                this.segments.clear();
+            if (segments != null) {
+                this.segments = new ArrayList<>(segments);
+            }
             return this;
         }
 

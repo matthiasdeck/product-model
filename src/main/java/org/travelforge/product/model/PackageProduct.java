@@ -25,6 +25,9 @@
  */
 package org.travelforge.product.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,6 +36,7 @@ import java.util.List;
 /**
  * @author Matthias Deck
  */
+@JsonDeserialize(builder=PackageProduct.Builder.class)
 public class PackageProduct implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -137,6 +141,7 @@ public class PackageProduct implements Serializable {
                 '}';
     }
 
+    @JsonPOJOBuilder(withPrefix = "")
     public static class Builder {
 
         private String provider;
@@ -181,21 +186,10 @@ public class PackageProduct implements Serializable {
             return this;
         }
 
-        public PackageProduct.Builder extra(Extra extra) {
-            if (this.extras == null) this.extras = new ArrayList<>();
-            this.extras.add(extra);
-            return this;
-        }
-
         public PackageProduct.Builder extras(Collection<? extends Extra> extras) {
-            if (this.extras == null) this.extras = new ArrayList<>();
-            this.extras.addAll(extras);
-            return this;
-        }
-
-        public PackageProduct.Builder clearExtras() {
-            if (this.extras != null)
-                this.extras.clear();
+            if (extras != null) {
+                this.extras = new ArrayList<>(extras);
+            }
             return this;
         }
 
@@ -207,7 +201,7 @@ public class PackageProduct implements Serializable {
         public PackageProduct build() {
             List<Extra> extras = null;
             if (this.extras != null && !this.extras.isEmpty()) {
-                extras = java.util.Collections.unmodifiableList(new ArrayList<>(this.extras));
+                extras = java.util.Collections.unmodifiableList(this.extras);
             }
             return new PackageProduct(provider, tourOperator, travellers, travelPeriod, flight, hotel, extras, price);
         }

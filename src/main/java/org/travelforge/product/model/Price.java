@@ -25,6 +25,9 @@
  */
 package org.travelforge.product.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,6 +36,7 @@ import java.util.List;
 /**
  * @author Matthias Deck
  */
+@JsonDeserialize(builder=Price.Builder.class)
 public final class Price implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -102,6 +106,7 @@ public final class Price implements Serializable {
                 '}';
     }
 
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
 
         private String currency;
@@ -127,28 +132,17 @@ public final class Price implements Serializable {
             return this;
         }
 
-        public Price.Builder pricePerPerson(PricePerPerson pricePerPerson) {
-            if (this.pricesPerPerson == null) this.pricesPerPerson = new ArrayList<>();
-            this.pricesPerPerson.add(pricePerPerson);
-            return this;
-        }
-
         public Price.Builder pricesPerPerson(Collection<? extends PricePerPerson> pricesPerPerson) {
-            if (this.pricesPerPerson == null) this.pricesPerPerson = new ArrayList<>();
-            this.pricesPerPerson.addAll(pricesPerPerson);
-            return this;
-        }
-
-        public Price.Builder clearPricesPerPerson() {
-            if (this.pricesPerPerson != null)
-                this.pricesPerPerson.clear();
+            if (pricesPerPerson != null) {
+                this.pricesPerPerson = new ArrayList<>(pricesPerPerson);
+            }
             return this;
         }
 
         public Price build() {
             List<PricePerPerson> pricesPerPerson = null;
             if (this.pricesPerPerson != null && !this.pricesPerPerson.isEmpty()) {
-                pricesPerPerson = java.util.Collections.unmodifiableList(new ArrayList<>(this.pricesPerPerson));
+                pricesPerPerson = java.util.Collections.unmodifiableList(this.pricesPerPerson);
             }
             return new Price(currency, amountTotal, amountPerPerson, pricesPerPerson);
         }

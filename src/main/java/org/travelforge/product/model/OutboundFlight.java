@@ -25,13 +25,16 @@
  */
 package org.travelforge.product.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Matthias Deck
  */
+@JsonDeserialize(builder=OutboundFlight.Builder.class)
 public final class OutboundFlight extends BoundedFlight {
 
     private static final long serialVersionUID = 1L;
@@ -44,6 +47,7 @@ public final class OutboundFlight extends BoundedFlight {
         return new Builder();
     }
 
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder extends BoundedFlight.Builder<OutboundFlight> {
 
         private Builder() {
@@ -54,7 +58,7 @@ public final class OutboundFlight extends BoundedFlight {
         public OutboundFlight build() {
             List<FlightSegment> segments = null;
             if (this.segments != null && !this.segments.isEmpty()) {
-                segments = java.util.Collections.unmodifiableList(new ArrayList<>(this.segments));
+                segments = java.util.Collections.unmodifiableList(this.segments);
             }
             return new OutboundFlight(provider, airline, flightNumber, flightClass, flightId, flightCode, flightKey, bookingClass, bookingCode, departureAirport, departureDateTime, arrivalAirport, arrivalDateTime, stopOver, duration, segments);
         }

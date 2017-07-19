@@ -25,12 +25,16 @@
  */
 package org.travelforge.product.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 import java.io.Serializable;
 import java.util.*;
 
 /**
  * @author Matthias Deck
  */
+@JsonDeserialize(builder=PackageProductGroup.Builder.class)
 public final class PackageProductGroup implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -109,6 +113,7 @@ public final class PackageProductGroup implements Serializable {
                 '}';
     }
 
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
 
         private Integer id;
@@ -130,77 +135,39 @@ public final class PackageProductGroup implements Serializable {
             return this;
         }
 
-        public PackageProductGroup.Builder property(String key, Object value) {
-            if (this.properties == null) {
-                this.properties = new LinkedHashMap<>();
-            }
-            this.properties.put(key, value);
-            return this;
-        }
-
         public PackageProductGroup.Builder properties(Map<? extends String, ?> properties) {
-            if (this.properties == null) {
-                this.properties = new LinkedHashMap<>();
+            if (properties != null) {
+                this.properties = new LinkedHashMap<>(properties);
             }
-            this.properties.putAll(properties);
-            return this;
-        }
-
-        public PackageProductGroup.Builder clearProperties() {
-            if (this.properties != null) {
-                this.properties.clear();
-            }
-            return this;
-        }
-
-        public PackageProductGroup.Builder productGroup(PackageProductGroup productGroup) {
-            if (this.productGroups == null) this.productGroups = new ArrayList<PackageProductGroup>();
-            this.productGroups.add(productGroup);
             return this;
         }
 
         public PackageProductGroup.Builder productGroups(Collection<? extends PackageProductGroup> productGroups) {
-            if (this.productGroups == null) this.productGroups = new ArrayList<PackageProductGroup>();
-            this.productGroups.addAll(productGroups);
-            return this;
-        }
-
-        public PackageProductGroup.Builder clearProductGroups() {
-            if (this.productGroups != null)
-                this.productGroups.clear();
-            return this;
-        }
-
-        public PackageProductGroup.Builder product(PackageProduct product) {
-            if (this.products == null) this.products = new ArrayList<PackageProduct>();
-            this.products.add(product);
+            if (productGroups != null) {
+                this.productGroups = new ArrayList<>(productGroups);
+            }
             return this;
         }
 
         public PackageProductGroup.Builder products(Collection<? extends PackageProduct> products) {
-            if (this.products == null) this.products = new ArrayList<PackageProduct>();
-            this.products.addAll(products);
-            return this;
-        }
-
-        public PackageProductGroup.Builder clearProducts() {
-            if (this.products != null)
-                this.products.clear();
+            if (products != null) {
+                this.products = new ArrayList<>(products);
+            }
             return this;
         }
 
         public PackageProductGroup build() {
             Map<String, Object> properties = null;
             if (this.properties != null && !this.properties.isEmpty()) {
-                properties = Collections.unmodifiableMap(new LinkedHashMap<>(this.properties));
+                properties = Collections.unmodifiableMap(this.properties);
             }
             List<PackageProductGroup> productGroups = null;
             if (this.productGroups != null && !this.productGroups.isEmpty()) {
-                productGroups = java.util.Collections.unmodifiableList(new ArrayList<>(this.productGroups));
+                productGroups = java.util.Collections.unmodifiableList(this.productGroups);
             }
             List<PackageProduct> products = null;
             if (this.products != null && !this.products.isEmpty()) {
-                products = java.util.Collections.unmodifiableList(new ArrayList<>(this.products));
+                products = java.util.Collections.unmodifiableList(this.products);
             }
             return new PackageProductGroup(id, name, properties, productGroups, products);
         }

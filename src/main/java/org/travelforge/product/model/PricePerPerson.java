@@ -25,11 +25,15 @@
  */
 package org.travelforge.product.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 import java.io.Serializable;
 
 /**
  * @author Matthias Deck
  */
+@JsonDeserialize(builder=PricePerPerson.Builder.class)
 public final class PricePerPerson implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -80,6 +84,7 @@ public final class PricePerPerson implements Serializable {
                 '}';
     }
 
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
 
         private String type;

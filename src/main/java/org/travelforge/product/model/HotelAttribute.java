@@ -25,21 +25,27 @@
  */
 package org.travelforge.product.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 import java.io.Serializable;
 
 /**
  * @author Matthias Deck
  */
+@JsonDeserialize(builder=HotelAttribute.Builder.class)
 public final class HotelAttribute implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private final String code;
     private final String name;
+    private final String iconHref;
 
-    private HotelAttribute(String code, String name) {
+    private HotelAttribute(String code, String name, String iconHref) {
         this.code = code;
         this.name = name;
+        this.iconHref = iconHref;
     }
 
     public static Builder builder() {
@@ -54,6 +60,10 @@ public final class HotelAttribute implements Serializable {
         return this.name;
     }
 
+    public String getIconHref() {
+        return iconHref;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,13 +72,15 @@ public final class HotelAttribute implements Serializable {
         HotelAttribute that = (HotelAttribute) o;
 
         if (code != null ? !code.equals(that.code) : that.code != null) return false;
-        return name != null ? name.equals(that.name) : that.name == null;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return iconHref != null ? iconHref.equals(that.iconHref) : that.iconHref == null;
     }
 
     @Override
     public int hashCode() {
         int result = code != null ? code.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (iconHref != null ? iconHref.hashCode() : 0);
         return result;
     }
 
@@ -77,13 +89,16 @@ public final class HotelAttribute implements Serializable {
         return "HotelAttribute{" +
                 "code='" + code + '\'' +
                 ", name='" + name + '\'' +
+                ", iconHref='" + iconHref + '\'' +
                 '}';
     }
 
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
 
         private String code;
         private String name;
+        private String iconHref;
 
         private Builder() {
         }
@@ -98,8 +113,13 @@ public final class HotelAttribute implements Serializable {
             return this;
         }
 
+        public HotelAttribute.Builder iconHref(String iconHref) {
+            this.iconHref = iconHref;
+            return this;
+        }
+
         public HotelAttribute build() {
-            return new HotelAttribute(code, name);
+            return new HotelAttribute(code, name, iconHref);
         }
     }
 }

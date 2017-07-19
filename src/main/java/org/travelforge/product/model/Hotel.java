@@ -25,12 +25,16 @@
  */
 package org.travelforge.product.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 import java.io.Serializable;
 import java.util.*;
 
 /**
  * @author Matthias Deck
  */
+@JsonDeserialize(builder=Hotel.Builder.class)
 public final class Hotel implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -154,6 +158,7 @@ public final class Hotel implements Serializable {
                 '}';
     }
 
+    @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
 
         private String provider;
@@ -200,43 +205,16 @@ public final class Hotel implements Serializable {
             return this;
         }
 
-        public Hotel.Builder attribute(HotelAttribute attribute) {
-            if (this.attributes == null) this.attributes = new ArrayList<>();
-            this.attributes.add(attribute);
-            return this;
-        }
-
         public Hotel.Builder attributes(Collection<? extends HotelAttribute> attributes) {
-            if (this.attributes == null) this.attributes = new ArrayList<>();
-            this.attributes.addAll(attributes);
-            return this;
-        }
-
-        public Hotel.Builder clearAttributes() {
-            if (this.attributes != null)
-                this.attributes.clear();
-            return this;
-        }
-
-        public Hotel.Builder recommendation(String key, Number value) {
-            if (this.recommendations == null) {
-                this.recommendations = new LinkedHashMap<>();
+            if (attributes != null) {
+                this.attributes = new ArrayList<>(attributes);
             }
-            this.recommendations.put(key, value);
             return this;
         }
 
         public Hotel.Builder recommendations(Map<? extends String, ? extends Number> recommendations) {
-            if (this.recommendations == null) {
-                this.recommendations = new LinkedHashMap<>();
-            }
-            this.recommendations.putAll(recommendations);
-            return this;
-        }
-
-        public Hotel.Builder clearRecommendations() {
-            if (this.recommendations != null) {
-                this.recommendations.clear();
+            if (recommendations != null) {
+                this.recommendations = new LinkedHashMap<>(recommendations);
             }
             return this;
         }
@@ -254,11 +232,11 @@ public final class Hotel implements Serializable {
         public Hotel build() {
             List<HotelAttribute> attributes = null;
             if (this.attributes != null && !this.attributes.isEmpty()) {
-                attributes = java.util.Collections.unmodifiableList(new ArrayList<>(this.attributes));
+                attributes = java.util.Collections.unmodifiableList(this.attributes);
             }
             Map<String, Number> recommendations = null;
             if (this.recommendations != null && !this.recommendations.isEmpty()) {
-                recommendations = Collections.unmodifiableMap(new LinkedHashMap<>(this.recommendations));
+                recommendations = Collections.unmodifiableMap(this.recommendations);
             }
             return new Hotel(provider, code, productCode, name, category, location, attributes, recommendations, room, board);
         }
